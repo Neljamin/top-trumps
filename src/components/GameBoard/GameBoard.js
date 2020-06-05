@@ -1,7 +1,16 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import _ from "lodash";
+import PropTypes from "prop-types";
 
 import { breakpoints } from "../../styles";
+
+const STATE_MESSAGE = {
+	unplayed: "?",
+	win: "You Win!",
+	lose: "You Lose!",
+	draw: "You Draw!",
+};
 
 const StyledGameBoard = styled.div`
 	display: flex;
@@ -25,16 +34,36 @@ const SytledGameBoardStatus = styled.span`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	background-color: #fafafa;
 	border: 1px solid #ccc;
 	border-radius: 50%;
+	font-weight: 900;
+	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3), 2px 2px 0 rgba(0, 0, 0, 0.22);
+
+	${(props) => {
+		const stateProps = _.get(props, ["theme", "gameState", props.state]);
+
+		return css`
+			background-color: ${stateProps.background};
+			color: ${stateProps.text};
+		`;
+	}};
 `;
 
-const GameBoard = ({ children }) => (
+const GameBoard = ({ children, state }) => (
 	<StyledGameBoard>
 		{children}
-		<SytledGameBoardStatus>You Lose!</SytledGameBoardStatus>
+		<SytledGameBoardStatus state={state}>
+			{STATE_MESSAGE[state]}
+		</SytledGameBoardStatus>
 	</StyledGameBoard>
 );
+
+GameBoard.propType = {
+	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+};
+
+GameBoard.defaultProps = {
+	state: "unplayed",
+};
 
 export default GameBoard;
