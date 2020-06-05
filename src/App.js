@@ -1,19 +1,8 @@
 import React from "react";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 
-import { breakpoints, theme } from "./styles";
-import { PlayArea, Card } from "./components";
-
-const GameBoard = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100vh;
-	width: 100vw;
-
-	@media ${breakpoints.tablet} {
-		flex-direction: row;
-	}
-`;
+import { theme as defaultTheme } from "./styles";
+import { PlayArea, Card, GameBoard } from "./components";
 
 const dummyUserCardData = {
 	title: "CR90 corvette",
@@ -62,7 +51,7 @@ const dummyComputerCardData = {
 };
 
 const App = () => (
-	<ThemeProvider theme={theme}>
+	<ThemeProvider theme={defaultTheme}>
 		<GameBoard>
 			<PlayArea type="user" score="5">
 				<Card
