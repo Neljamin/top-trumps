@@ -53,7 +53,7 @@ const dummyComputerCardData = {
 const App = () => (
 	<ThemeProvider theme={defaultTheme}>
 		<GameBoard>
-			<PlayArea type="user" score="5">
+			<PlayArea type="user" score="5" position="top">
 				<Card
 					type="user"
 					title={dummyUserCardData.title}
@@ -61,7 +61,7 @@ const App = () => (
 					categories={dummyUserCardData.categories}
 				></Card>
 			</PlayArea>
-			<PlayArea type="computer" score="3">
+			<PlayArea type="computer" score="3" position="bottom">
 				<Card
 					type="computer"
 					title={dummyComputerCardData.title}
