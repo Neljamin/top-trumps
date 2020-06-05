@@ -10,17 +10,9 @@ const StyledPlayArea = styled.div`
 	height: 100%;
 	position: relative;
 	justify-content: center;
+	align-items: center;
 	background: ${({ theme, type }) =>
 		_.get(theme, [type, "background"], "white")};
-
-	${(props) => {
-		const top = props.position === "top";
-		return css`
-			align-items: ${top ? "flex-end" : "flex-start"};
-			padding-bottom: ${top ? "50px" : "0px"};
-			padding-top: ${top ? "0px" : "50px"};
-		`;
-	}};
 
 	@media ${breakpoints.tablet} {
 		padding: 0;
@@ -44,7 +36,7 @@ const StyledPlayAreaScoreValue = styled.span`
 `;
 
 const PlayArea = ({ children, type, score, position }) => (
-	<StyledPlayArea type={type} position={position}>
+	<StyledPlayArea type={type}>
 		<StyledPlayAreaScore>
 			<StyledPlayAreaScoreLabel>Score:</StyledPlayAreaScoreLabel>
 			<StyledPlayAreaScoreValue>{score}</StyledPlayAreaScoreValue>
@@ -56,7 +48,6 @@ const PlayArea = ({ children, type, score, position }) => (
 PlayArea.propTypes = {
 	type: PropTypes.string.isRequired,
 	children: PropTypes.node,
-	position: PropTypes.oneOf(["top", "bottom"]).isRequired,
 };
 
 export default PlayArea;
