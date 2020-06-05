@@ -2,6 +2,7 @@
   "name": "top-trumps",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://neljamin.github.io/top-trumps/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -18,7 +19,9 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "lint": "eslint src/",
-    "lint-fix": "eslint src/ --fix"
+    "lint-fix": "eslint src/ --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +56,7 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.0.0",
+    "gh-pages": "^3.0.0",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
     "styled-components": "^5.1.1"
