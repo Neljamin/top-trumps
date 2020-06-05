@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import _ from "lodash";
 
 import { breakpoints } from "../../styles";
@@ -9,12 +9,18 @@ const StyledPlayArea = styled.div`
 	display: flex;
 	height: 100%;
 	position: relative;
-	padding: 100px 0;
-	align-items: ${(props) =>
-		props.position === "top" ? "flex-end" : "flex-start"};
 	justify-content: center;
 	background: ${({ theme, type }) =>
 		_.get(theme, [type, "background"], "white")};
+
+	${(props) => {
+		const top = props.position === "top";
+		return css`
+			align-items: ${top ? "flex-end" : "flex-start"};
+			padding-bottom: ${top ? "50px" : "0px"};
+			padding-top: ${top ? "0px" : "50px"};
+		`;
+	}};
 
 	@media ${breakpoints.tablet} {
 		padding: 0;
