@@ -9,14 +9,15 @@ const StyledPlayArea = styled.div`
 	display: flex;
 	height: 100%;
 	position: relative;
-	padding: 30px 0;
+	padding: 100px 0;
 	align-items: ${(props) =>
-		props.position === "top" ? "flex-start" : "flex-end"};
+		props.position === "top" ? "flex-end" : "flex-start"};
 	justify-content: center;
 	background: ${({ theme, type }) =>
 		_.get(theme, [type, "background"], "white")};
 
 	@media ${breakpoints.tablet} {
+		padding: 0;
 		align-items: center;
 	}
 `;
