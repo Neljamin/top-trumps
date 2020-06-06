@@ -26,23 +26,34 @@ export const StyledCard = styled.div`
 	}
 `;
 
-const Card = ({ type, title, info, categories }) => (
+const Card = ({ type, data }) => (
 	<StyledCard>
-		<CardDescription type={type} title={title} info={info} />
-		<CardCategories categories={categories} />
+		<CardDescription type={type} title={data.title} info={data.info} />
+		<CardCategories categories={data.categories} />
 	</StyledCard>
 );
 
 Card.propTypes = {
 	type: PropTypes.oneOf(["user", "computer"]),
-	title: PropTypes.string,
-	info: PropTypes.arrayOf(PropTypes.string),
+	data: PropTypes.shape({
+		title: PropTypes.string,
+		info: PropTypes.arrayOf(PropTypes.string),
+		categories: PropTypes.arrayOf(
+			PropTypes.shape({
+				label: PropTypes.string,
+				value: PropTypes.string,
+			})
+		),
+	}),
 };
 
 Card.defaultProps = {
 	type: "user",
-	categories: [],
-	info: [],
+	data: {
+		title: "",
+		categories: [],
+		info: [],
+	},
 };
 
 export default Card;

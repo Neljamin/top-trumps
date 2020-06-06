@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledCardCategories = styled.div`
 	padding: 16px 0;
@@ -36,6 +37,15 @@ const CardCategories = ({ categories }) => (
 
 CardCategories.defaultProps = {
 	categories: [],
+};
+
+CardCategories.propTypes = {
+	categories: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string,
+			value: PropTypes.string,
+		})
+	),
 };
 
 export default CardCategories;

@@ -56,4 +56,9 @@ CardDescription.propTypes = {
 	type: PropTypes.oneOf(["user", "computer"]).isRequired,
 };
 
+CardDescription.defaultProps = {
+	title: "",
+	info: [],
+};
+
 export default CardDescription;

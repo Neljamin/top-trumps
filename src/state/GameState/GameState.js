@@ -10,8 +10,8 @@ export function GameStateProvider({ children }) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const value = {
-		count: state.count,
-		setCount: (value) => dispatch({ type: actions.SET_COUNT, value }),
+		playerCard: state.playerCard,
+		computerCard: state.computerCard,
 	};
 
 	return (
