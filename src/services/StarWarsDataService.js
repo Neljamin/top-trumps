@@ -1,44 +1,44 @@
-const BASE_URL = "https://swapi.dev/api";
+import request from "graphql-request";
+
+const BASE_URL =
+	"https://api-euwest.graphcms.com/v1/ck5wca13qc9ux01fgaidt12m4/master";
 
 class StarWarsDataService {
-	getPageData(pageUrl) {
-		return fetch(pageUrl).then((response) => response.json());
-	}
-
-	async getAllPagesData(resource) {
-		const startingPageUrl = `${BASE_URL}/${resource}`;
-		let data = [];
-		let result = await this.getPageData(startingPageUrl);
-		data = [...data, ...result.results];
-		while (result.next) {
-			result = await this.getPageData(result.next);
-			data = [...data, ...result.results];
-		}
-		return data;
-	}
-
 	getStarShips() {
-		return this.getAllPagesData("starships").then(this.sanitizeStarshipsData);
-	}
+		const query = `{
+			starships {
+				name,
+				class,
+				maxAtmospheringSpeed,
+				costInCredits,
+				passengers,
+				films {
+					title
+				}
+			}
+		}`;
 
-	sanitizeNumber = (rawData) => {
-		if (isNaN(rawData)) {
-			return 0;
-		}
-		return Number(rawData);
-	}
-
-	sanitizeStarshipsData = (rawStarshipsData) => {
-		return rawStarshipsData.map((rawStarshipData) => ({
-			title: rawStarshipData.name,
-			info: [rawStarshipData.starship_class],
-			categories: {
-				"Max Speed": this.sanitizeNumber(rawStarshipData.max_atmosphering_speed),
-				"Cost in Credits": this.sanitizeNumber(rawStarshipData.cost_in_credits),
-				Passengers: this.sanitizeNumber(rawStarshipData.passengers),
-				"Number of Films": this.sanitizeNumber(rawStarshipData.films.length),
-			},
-		}));
+		return request(BASE_URL, query).then((response) =>
+			response.starships.map(
+				({
+					name,
+					class: starshipClass,
+					maxAtmospheringSpeed,
+					costInCredits,
+					passengers,
+					films,
+				}) => ({
+					title: name,
+					info: [starshipClass],
+					categories: {
+						Speed: maxAtmospheringSpeed || 0,
+						Cost: costInCredits || 0,
+						Passengers: passengers || 0,
+						Films: films.length,
+					},
+				})
+			)
+		);
 	}
 }
 
