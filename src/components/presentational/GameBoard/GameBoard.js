@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
-import { breakpoints } from "../../styles";
+import { breakpoints } from "../../../styles";
 
 const STATE_MESSAGE = {
 	unplayed: "?",

@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import _ from "lodash";
 
-import { breakpoints } from "../../styles";
+import { breakpoints } from "../../../styles";
 
 const StyledPlayArea = styled.div`
 	display: flex;
@@ -35,7 +35,7 @@ const StyledPlayAreaScoreValue = styled.span`
 	padding: 0 8px;
 `;
 
-const PlayArea = ({ children, type, score, position }) => (
+const PlayArea = ({ children, type, score }) => (
 	<StyledPlayArea type={type}>
 		<StyledPlayAreaScore>
 			<StyledPlayAreaScoreLabel>Score:</StyledPlayAreaScoreLabel>
@@ -48,6 +48,7 @@ const PlayArea = ({ children, type, score, position }) => (
 PlayArea.propTypes = {
 	type: PropTypes.string.isRequired,
 	children: PropTypes.node,
+	score: PropTypes.string,
 };
 
 export default PlayArea;

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-import { breakpoints } from "../../styles";
+import { breakpoints } from "../../../styles";
 
 const ICON_MAP = {
 	user: "fa-user",
