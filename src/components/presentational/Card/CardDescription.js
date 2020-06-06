@@ -3,15 +3,10 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import { breakpoints } from "../../../styles";
-
-const ICON_MAP = {
-	user: "fa-user",
-	computer: "fa-robot",
-};
+import iconMap from "./iconMap";
 
 const StyledCardDescription = styled.div`
 	display: flex;
-	padding: 8px 0;
 `;
 
 const StyledCardDescriptionIcon = styled.div`
@@ -41,7 +36,7 @@ const StyledCardDescriptionTitle = styled.h1`
 const CardDescription = ({ title, info, type }) => (
 	<StyledCardDescription>
 		<StyledCardDescriptionIcon>
-			<i className={`fa ${ICON_MAP[type]}`} />
+			<i className={`fa ${iconMap[type]}`} />
 		</StyledCardDescriptionIcon>
 		<StyledCardDescriptionInfo>
 			<StyledCardDescriptionTitle>{title}</StyledCardDescriptionTitle>
@@ -55,7 +50,7 @@ const CardDescription = ({ title, info, type }) => (
 CardDescription.propTypes = {
 	title: PropTypes.string.isRequired,
 	info: PropTypes.arrayOf(PropTypes.string),
-	type: PropTypes.oneOf(["user", "computer"]).isRequired,
+	type: PropTypes.oneOf(Object.keys(iconMap)).isRequired,
 };
 
 CardDescription.defaultProps = {
