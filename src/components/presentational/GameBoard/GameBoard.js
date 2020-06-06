@@ -36,7 +36,7 @@ const SytledGameBoardStatus = styled.span`
 	text-align: center;
 	border: 1px solid #ccc;
 	border-radius: 50%;
-	font-weight: 600;
+	font-weight: 500;
 	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3), 2px 2px 0 rgba(0, 0, 0, 0.22);
 
 	${(props) => {

@@ -48,14 +48,24 @@ const StyledCardBackface = styled(StyledCardFace)`
 	transform: rotateY(180deg);
 `;
 
-const Card = ({ type, data, show, readonly, handleCategoryClick }) => (
+const Card = ({
+	type,
+	data,
+	show,
+	readonly,
+	handleCategoryClick,
+	state,
+	selectedCategory,
+}) => (
 	<StyledCard show={show}>
 		<StyledCardFrontface>
 			<CardDescription type={type} title={data.title} info={data.info} />
 			<CardCategories
+				state={state}
 				readonly={readonly}
 				categories={data.categories}
 				handleCategoryClick={handleCategoryClick}
+				selectedCategory={selectedCategory}
 			/>
 		</StyledCardFrontface>
 		<StyledCardBackface>
@@ -74,6 +84,8 @@ Card.propTypes = {
 		info: PropTypes.arrayOf(PropTypes.string),
 		categories: PropTypes.object,
 	}),
+	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+	selectedCategory: PropTypes.string,
 };
 
 Card.defaultProps = {

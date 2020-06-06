@@ -28,6 +28,11 @@ const StyledCardCategory = styled.button`
 		return css`
 			background-color: ${stateProps.background};
 			color: ${stateProps.text};
+
+			&:disabled {
+				background-color: ${stateProps.background};
+				color: ${stateProps.text};
+			}
 		`;
 	}};
 `;
@@ -41,13 +46,20 @@ const StyledCardCategoryValue = styled.div`
 	padding-right: 4px;
 `;
 
-const CardCategories = ({ categories, readonly, handleCategoryClick }) => (
+const CardCategories = ({
+	categories,
+	readonly,
+	handleCategoryClick,
+	state,
+	selectedCategory
+}) => (
 	<StyledCardCategories>
 		{Object.entries(categories).map(([key, value], index) => (
 			<StyledCardCategory
 				key={index}
 				disabled={readonly}
 				onClick={() => handleCategoryClick(key)}
+				state={selectedCategory === key && state}
 			>
 				<StyledCardCategoryLabel>{key}</StyledCardCategoryLabel>
 				<StyledCardCategoryValue>{value}</StyledCardCategoryValue>
@@ -65,12 +77,14 @@ CardCategories.propTypes = {
 		}
 	},
 	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+	selectedCategory: PropTypes.string,
 };
 
 CardCategories.defaultProps = {
 	categories: {},
 	readonly: true,
 	state: "unplayed",
+	selectedCategory: "",
 };
 
 export default CardCategories;
