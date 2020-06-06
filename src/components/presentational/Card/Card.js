@@ -12,13 +12,11 @@ const StyledCard = styled.div`
 	display: flex;
 	height: 200px;
 	width: 100%;
+	max-width: 400px;
 	margin: 0 16px;
 	transform-style: preserve-3d;
 	transition: transform 0.6s;
-
-	&:hover {
-		transform: rotateY(180deg);
-	}
+	transform: rotateY(${(props) => (props.show ? "0deg" : "180deg")});
 
 	@media ${breakpoints.tablet} {
 		height: 400px;
@@ -50,11 +48,15 @@ const StyledCardBackface = styled(StyledCardFace)`
 	transform: rotateY(180deg);
 `;
 
-const Card = ({ type, data }) => (
-	<StyledCard>
+const Card = ({ type, data, show, readonly, handleCategoryClick }) => (
+	<StyledCard show={show}>
 		<StyledCardFrontface>
 			<CardDescription type={type} title={data.title} info={data.info} />
-			<CardCategories categories={data.categories} />
+			<CardCategories
+				readonly={readonly}
+				categories={data.categories}
+				handleCategoryClick={handleCategoryClick}
+			/>
 		</StyledCardFrontface>
 		<StyledCardBackface>
 			<CardBackFace type={type} />
@@ -63,6 +65,9 @@ const Card = ({ type, data }) => (
 );
 
 Card.propTypes = {
+	show: PropTypes.bool,
+	readonly: PropTypes.bool,
+	handleCategoryClick: PropTypes.func,
 	type: PropTypes.oneOf(["user", "computer"]),
 	data: PropTypes.shape({
 		title: PropTypes.string,
@@ -72,6 +77,8 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
+	show: true,
+	readonly: true,
 	type: "user",
 	data: {
 		title: "",

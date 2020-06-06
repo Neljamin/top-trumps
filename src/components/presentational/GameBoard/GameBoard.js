@@ -36,12 +36,11 @@ const SytledGameBoardStatus = styled.span`
 	text-align: center;
 	border: 1px solid #ccc;
 	border-radius: 50%;
-	font-weight: 900;
+	font-weight: 600;
 	box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3), 2px 2px 0 rgba(0, 0, 0, 0.22);
 
 	${(props) => {
-		const stateProps = _.get(props, ["theme", "gameState", props.state]);
-
+		const stateProps = _.get(props, ["theme", "gameState", props.state], {});
 		return css`
 			background-color: ${stateProps.background};
 			color: ${stateProps.text};

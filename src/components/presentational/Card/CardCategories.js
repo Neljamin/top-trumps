@@ -1,21 +1,38 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import _ from "lodash";
 
 const StyledCardCategories = styled.div`
 	padding: 16px 0;
 `;
 
-const StyledCardCategory = styled.div`
+const StyledCardCategory = styled.button`
 	display: flex;
+	width: 100%;
 	padding: 4px 0;
 	margin-bottom: 2px;
 	justify-content: space-between;
 	border: 1px #ccc solid;
+	background-color: white;
+	color: black;
+	text-align: left;
+
+	&:disabled {
+		background-color: white;
+		color: black;
+	}
+
+	${(props) => {
+		const stateProps = _.get(props, ["theme", "gameState", props.state], {});
+		return css`
+			background-color: ${stateProps.background};
+			color: ${stateProps.text};
+		`;
+	}};
 `;
 
 const StyledCardCategoryLabel = styled.div`
-	display: block;
 	padding-left: 4px;
 `;
 
@@ -24,10 +41,14 @@ const StyledCardCategoryValue = styled.div`
 	padding-right: 4px;
 `;
 
-const CardCategories = ({ categories }) => (
+const CardCategories = ({ categories, readonly, handleCategoryClick }) => (
 	<StyledCardCategories>
 		{Object.entries(categories).map(([key, value], index) => (
-			<StyledCardCategory key={index}>
+			<StyledCardCategory
+				key={index}
+				disabled={readonly}
+				onClick={() => handleCategoryClick(key)}
+			>
 				<StyledCardCategoryLabel>{key}</StyledCardCategoryLabel>
 				<StyledCardCategoryValue>{value}</StyledCardCategoryValue>
 			</StyledCardCategory>
@@ -35,12 +56,21 @@ const CardCategories = ({ categories }) => (
 	</StyledCardCategories>
 );
 
-CardCategories.defaultProps = {
-	categories: {},
-};
-
 CardCategories.propTypes = {
 	categories: PropTypes.object,
+	readonly: PropTypes.bool,
+	handleCategoryClick: (props, propName) => {
+		if (!props.readonly && !_.isFunction(props[propName])) {
+			throw new Error("handleCategoryClick must be provided if not readonly");
+		}
+	},
+	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+};
+
+CardCategories.defaultProps = {
+	categories: {},
+	readonly: true,
+	state: "unplayed",
 };
 
 export default CardCategories;
