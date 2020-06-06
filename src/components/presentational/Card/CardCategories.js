@@ -26,26 +26,21 @@ const StyledCardCategoryValue = styled.div`
 
 const CardCategories = ({ categories }) => (
 	<StyledCardCategories>
-		{categories.map((category, index) => (
+		{Object.entries(categories).map(([key, value], index) => (
 			<StyledCardCategory key={index}>
-				<StyledCardCategoryLabel>{category.label}</StyledCardCategoryLabel>
-				<StyledCardCategoryValue>{category.value}</StyledCardCategoryValue>
+				<StyledCardCategoryLabel>{key}</StyledCardCategoryLabel>
+				<StyledCardCategoryValue>{value}</StyledCardCategoryValue>
 			</StyledCardCategory>
 		))}
 	</StyledCardCategories>
 );
 
 CardCategories.defaultProps = {
-	categories: [],
+	categories: {},
 };
 
 CardCategories.propTypes = {
-	categories: PropTypes.arrayOf(
-		PropTypes.shape({
-			label: PropTypes.string,
-			value: PropTypes.string,
-		})
-	),
+	categories: PropTypes.object,
 };
 
 export default CardCategories;

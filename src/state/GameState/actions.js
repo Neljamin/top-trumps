@@ -1,3 +1,3 @@
 export default {
-	SET_COUNT: "SET_COUNT",
+	SET_LOADING: "SET_LOADING",
 };

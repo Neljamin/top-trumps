@@ -38,12 +38,7 @@ Card.propTypes = {
 	data: PropTypes.shape({
 		title: PropTypes.string,
 		info: PropTypes.arrayOf(PropTypes.string),
-		categories: PropTypes.arrayOf(
-			PropTypes.shape({
-				label: PropTypes.string,
-				value: PropTypes.string,
-			})
-		),
+		categories: PropTypes.object,
 	}),
 };
 
@@ -51,7 +46,7 @@ Card.defaultProps = {
 	type: "user",
 	data: {
 		title: "",
-		categories: [],
+		categories: {},
 		info: [],
 	},
 };

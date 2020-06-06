@@ -48,7 +48,7 @@ const PlayArea = ({ children, type, score }) => (
 PlayArea.propTypes = {
 	type: PropTypes.string.isRequired,
 	children: PropTypes.node,
-	score: PropTypes.string,
+	score: PropTypes.number,
 };
 
 export default PlayArea;

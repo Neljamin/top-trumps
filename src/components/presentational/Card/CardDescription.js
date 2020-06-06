@@ -29,10 +29,12 @@ const StyledCardDescriptionIcon = styled.div`
 const StyledCardDescriptionInfo = styled.div`
 	padding: 0 8px;
 	text-align: right;
+	font-size: 14px;
 `;
 
 const StyledCardDescriptionTitle = styled.h1`
-	font-size: 24px;
+	font-size: 14px;
+	line-height: 16px;
 	font-weight: 600;
 `;
 

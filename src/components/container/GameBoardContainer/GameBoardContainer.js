@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { PlayArea, Card, GameBoard } from "../../presentational";
 import { GameStateContext } from "../../../state";
 
 export default function GameBoardContainer() {
-	const { playerCard, computerCard } = React.useContext(GameStateContext);
+	const { loading, player, computer } = useContext(GameStateContext);
+
+	if (loading) {
+		return null;
+	}
 
 	return (
 		<GameBoard>
-			<PlayArea type="user" score="5">
-				<Card type="user" data={playerCard}></Card>
+			<PlayArea type="user" score={player.cards.length}>
+				<Card type="user" data={player.currentCard}></Card>
 			</PlayArea>
-			<PlayArea type="computer" score="3">
-				<Card type="computer" data={computerCard}></Card>
+			<PlayArea type="computer" score={computer.cards.length}>
+				<Card type="computer" data={computer.currentCard}></Card>
 			</PlayArea>
 		</GameBoard>
 	);
