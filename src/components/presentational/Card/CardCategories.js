@@ -7,8 +7,8 @@ const StyledCardCategories = styled.div`
 
 const StyledCardCategory = styled.div`
 	display: flex;
-    padding: 4px 0;
-    margin-bottom: 2px;
+	padding: 4px 0;
+	margin-bottom: 2px;
 	justify-content: space-between;
 	border: 1px #ccc solid;
 `;
@@ -27,12 +27,8 @@ const CardCategories = ({ categories }) => (
 	<StyledCardCategories>
 		{categories.map((category, index) => (
 			<StyledCardCategory key={index}>
-				<StyledCardCategoryLabel>
-					{category.label}
-				</StyledCardCategoryLabel>
-				<StyledCardCategoryValue>
-					{category.value}
-				</StyledCardCategoryValue>
+				<StyledCardCategoryLabel>{category.label}</StyledCardCategoryLabel>
+				<StyledCardCategoryValue>{category.value}</StyledCardCategoryValue>
 			</StyledCardCategory>
 		))}
 	</StyledCardCategories>
