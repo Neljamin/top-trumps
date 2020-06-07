@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
@@ -24,11 +24,6 @@ const ICONS = {
     draw: "fas fa-equals",
 };
 
-const slideIn = keyframes`
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0%); }
-`;
-
 const StyledGameOverScreen = styled.div`
     position: absolute;
     display: flex;
@@ -38,7 +33,8 @@ const StyledGameOverScreen = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-    animation: ${slideIn} 1s ease;
+	transition: transform 1.2s;
+    transform: translateY(${(props) => (props.gameOver ? "0" : "-100%")});
 
     ${(props) => {
 		const stateProps = _.get(props, ["theme", "gameState", props.state], {});
@@ -91,12 +87,8 @@ const getEndGameState = (player, computer) => {
 const GameBoardGameOver = ({ computer, player, gameOver }) => {
     const state = getEndGameState(player, computer);
 
-    if (!gameOver) {
-        return null;
-    }
-
     return (
-		<StyledGameOverScreen state={state}>
+		<StyledGameOverScreen state={state} gameOver={gameOver}>
 			<StyledGameOverScreenMessage>
 				<StyledGameOverScreenMessageTitle>
 					{MESSAGES[state].title}
@@ -104,9 +96,11 @@ const GameBoardGameOver = ({ computer, player, gameOver }) => {
 				<StyledGameOverScreenMessageSubtitle>
 					{MESSAGES[state].subtitle}
 				</StyledGameOverScreenMessageSubtitle>
-				<StyledGameOverScreenMessageIcon>
-					<i className={ICONS[state]} />
-				</StyledGameOverScreenMessageIcon>
+				{gameOver && (
+					<StyledGameOverScreenMessageIcon>
+						<i className={ICONS[state]} />
+					</StyledGameOverScreenMessageIcon>
+				)}
 			</StyledGameOverScreenMessage>
 		</StyledGameOverScreen>
 	);
