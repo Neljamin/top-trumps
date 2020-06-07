@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/top-trumps/static/css/main.44026de0.chunk.css",
-    "main.js": "/top-trumps/static/js/main.02f99f9e.chunk.js",
-    "main.js.map": "/top-trumps/static/js/main.02f99f9e.chunk.js.map",
+    "main.js": "/top-trumps/static/js/main.050c1f42.chunk.js",
+    "main.js.map": "/top-trumps/static/js/main.050c1f42.chunk.js.map",
     "runtime-main.js": "/top-trumps/static/js/runtime-main.0008a893.js",
     "runtime-main.js.map": "/top-trumps/static/js/runtime-main.0008a893.js.map",
-    "static/js/2.160591d5.chunk.js": "/top-trumps/static/js/2.160591d5.chunk.js",
-    "static/js/2.160591d5.chunk.js.map": "/top-trumps/static/js/2.160591d5.chunk.js.map",
+    "static/js/2.b4f7e5da.chunk.js": "/top-trumps/static/js/2.b4f7e5da.chunk.js",
+    "static/js/2.b4f7e5da.chunk.js.map": "/top-trumps/static/js/2.b4f7e5da.chunk.js.map",
     "index.html": "/top-trumps/index.html",
-    "precache-manifest.aec2bad590d2456f33a62eeb743f1844.js": "/top-trumps/precache-manifest.aec2bad590d2456f33a62eeb743f1844.js",
+    "precache-manifest.6833eff6e421e43860beff6511c4a661.js": "/top-trumps/precache-manifest.6833eff6e421e43860beff6511c4a661.js",
     "service-worker.js": "/top-trumps/service-worker.js",
     "static/css/main.44026de0.chunk.css.map": "/top-trumps/static/css/main.44026de0.chunk.css.map",
-    "static/js/2.160591d5.chunk.js.LICENSE.txt": "/top-trumps/static/js/2.160591d5.chunk.js.LICENSE.txt"
+    "static/js/2.b4f7e5da.chunk.js.LICENSE.txt": "/top-trumps/static/js/2.b4f7e5da.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0008a893.js",
-    "static/js/2.160591d5.chunk.js",
+    "static/js/2.b4f7e5da.chunk.js",
     "static/css/main.44026de0.chunk.css",
-    "static/js/main.02f99f9e.chunk.js"
+    "static/js/main.050c1f42.chunk.js"
   ]
 }
