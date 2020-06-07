@@ -1,7 +1,5 @@
-import { starWarsDataService } from "../../services";
-
-const shuffleCards = (cards) => cards.sort(() => Math.random() - 0.5);
-const splitCardsInHalf = (cards) => {
+export const shuffleCards = (cards) => cards.sort(() => Math.random() - 0.5);
+export const splitCardsInHalf = (cards) => {
 	if (cards.length % 2 === 1) {
 		cards.pop();
 	}
@@ -17,22 +15,4 @@ const splitCardsInHalf = (cards) => {
 	});
 
 	return [firstHalf, secondHalf];
-};
-
-export const setStarWarsCards = async (value, setValue) => {
-	const cards = await starWarsDataService.getStarShips();
-	const shuffledCards = shuffleCards(cards);
-	const [playerCards, computerCards] = splitCardsInHalf(shuffledCards);
-	setValue({
-		...value,
-		loading: false,
-		player: {
-			currentCard: playerCards[0],
-			cards: playerCards,
-		},
-		computer: {
-			currentCard: computerCards[0],
-			cards: computerCards,
-		},
-	});
 };

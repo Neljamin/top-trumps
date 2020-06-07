@@ -1,24 +1,30 @@
-import React, { useState, useEffect, useReducer, createContext } from "react";
+import React, { useEffect, useReducer, createContext } from "react";
 
 import reducer from "./reducer";
 import initialState from "./initialState";
 import actions from "./actions";
-import { setStarWarsCards } from "./helpers";
+import { starWarsDataService } from "../../services";
 
 export const GameStateContext = createContext({});
 
 export function GameStateProvider({ children }) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
-	const initialValue = {
+	const value = {
 		loading: state.loading,
+		allCards: state.allCards,
 		player: state.player,
 		computer: state.computer,
+		selectedCategory: state.selectedCategory,
+		setCards: (value) => dispatch({ type: actions.SET_CARDS, value }),
+		handleCategoryClick: (value) => dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
 	};
-	const [value, setValue] = useState(initialValue);
 
 	useEffect(() => {
-		setStarWarsCards(value, setValue);
+		(async function loadCards() {
+			const cards = await starWarsDataService.getStarShips();
+			value.setCards(cards);
+		})();
 	}, []);
 
 	return (
