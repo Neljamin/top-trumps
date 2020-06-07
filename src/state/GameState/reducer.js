@@ -23,6 +23,7 @@ const setCards = (state, cards) => {
 			currentCard: playerCards[0],
 			cards: playerCards,
 			score: playerCards.length,
+			state: undefined,
 		},
 		computer: {
 			...computer,
@@ -30,6 +31,8 @@ const setCards = (state, cards) => {
 			currentCard: computerCards[0],
 			cards: computerCards,
 			score: computerCards.length,
+			showCard: false,
+			state: undefined,
 		},
 	};
 };
@@ -99,6 +102,7 @@ const startNewRound = (state) => {
 		computer: {
 			...newComputer,
 			showCard: false,
+			readonly: true,
 		},
 		selectedCategory: undefined,
 	};
