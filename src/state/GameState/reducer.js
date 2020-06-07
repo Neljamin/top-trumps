@@ -119,6 +119,10 @@ const hideCards = (state) => {
 	};
 };
 
+const newGame = (state) => {
+	return setCards(state, state.allCards);
+};
+
 export default function reducer(state, action) {
 	switch (action.type) {
 		case actions.SET_CARDS:
@@ -129,6 +133,8 @@ export default function reducer(state, action) {
 			return startNewRound(state);
 		case actions.HIDE_CARDS:
 			return hideCards(state);
+		case actions.NEW_GAME:
+			return newGame(state);
 		default:
 			return state;
 	}

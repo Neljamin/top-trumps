@@ -33,7 +33,7 @@ const StyledGameOverScreen = styled.div`
     width: 100%;
     align-items: center;
     justify-content: center;
-	transition: transform 1.2s;
+	transition: transform 1.2s, background-color 1.2s;
     transform: translateY(${(props) => (props.gameOver ? "0" : "-100%")});
 
     ${(props) => {
@@ -91,32 +91,33 @@ const getEndGameState = (player, computer) => {
 		return "lose";
 	} else if (player.score > computer.score) {
 		return "win";
+	} else if (player.score === computer.score) {
+		return "draw";
 	}
-	return "draw";
 };
 
 const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
     const state = getEndGameState(player, computer);
-
     return (
 		<StyledGameOverScreen state={state} gameOver={gameOver}>
-			<StyledGameOverScreenMessage>
-				<StyledGameOverScreenMessageTitle>
-					{MESSAGES[state].title}
-				</StyledGameOverScreenMessageTitle>
-				<StyledGameOverScreenMessageSubtitle>
-					{MESSAGES[state].subtitle}
-				</StyledGameOverScreenMessageSubtitle>
-				{/* conditional render because of fontawesome */}
-				{gameOver && (
+			{gameOver && (
+				<StyledGameOverScreenMessage>
+					<StyledGameOverScreenMessageTitle>
+						{MESSAGES[state].title}
+					</StyledGameOverScreenMessageTitle>
+					<StyledGameOverScreenMessageSubtitle>
+						{MESSAGES[state].subtitle}
+					</StyledGameOverScreenMessageSubtitle>
+
 					<StyledGameOverScreenMessageIcon>
 						<i className={ICONS[state]} />
 					</StyledGameOverScreenMessageIcon>
-				)}
-				<StyledPlayAgainButton onClick={playAgain}>
-					Play Again?
-				</StyledPlayAgainButton>
-			</StyledGameOverScreenMessage>
+
+					<StyledPlayAgainButton onClick={playAgain}>
+						Play Again?
+					</StyledPlayAgainButton>
+				</StyledGameOverScreenMessage>
+			)}
 		</StyledGameOverScreen>
 	);
 };

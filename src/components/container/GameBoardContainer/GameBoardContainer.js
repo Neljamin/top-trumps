@@ -15,6 +15,7 @@ export default function GameBoardContainer() {
 		totalRounds,
 		currentRound,
 		gameOver,
+		newGame,
 	} = useContext(GameStateContext);
 
 	if (loading) {
@@ -31,10 +32,6 @@ export default function GameBoardContainer() {
 		}, 3000);
 	};
 
-	const playAgain = () => {
-		console.log("play again");
-	}
-
 	return (
 		<GameBoard
 			gameOver={gameOver}
@@ -43,7 +40,7 @@ export default function GameBoardContainer() {
 			currentRound={currentRound}
 			computer={computer}
 			player={player}
-			playAgain={playAgain}
+			playAgain={newGame}
 		>
 			<PlayArea type="user" score={player.score}>
 				<Card

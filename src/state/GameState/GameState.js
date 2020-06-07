@@ -23,13 +23,13 @@ export function GameStateProvider({ children }) {
 		handleCategoryClick: (value) => dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
 		startNewRound: () => dispatch({ type: actions.START_NEW_ROUND }),
 		hideCards: () => dispatch({ type: actions.HIDE_CARDS }),
+		newGame: (value) => dispatch({ type: actions.NEW_GAME, value }),
 	};
 
 	useEffect(() => {
 		(async function loadCards() {
 			const cards = await starWarsDataService.getStarShips();
-			const tempoarilySetCards = [cards[0], cards[1]];
-			value.setCards(tempoarilySetCards);
+			value.setCards(cards);
 		})();
 		// eslint-disable-next-line
 	}, []);
