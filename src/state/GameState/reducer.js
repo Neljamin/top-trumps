@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 import actions from "./actions";
 import { shuffleCards, splitCardsInHalf } from "./helpers";
 
@@ -15,43 +17,53 @@ const setCards = (state, cards) => {
 			showCard: true,
 			currentCard: playerCards[0],
 			cards: playerCards,
+			score: playerCards.length,
 		},
 		computer: {
 			...computer,
 			readonly: true,
 			currentCard: computerCards[0],
 			cards: computerCards,
+			score: computerCards.length,
 		},
 	};
 };
 
 const handleCategoryClick = (state, category) => {
 	const { player, computer } = state;
+	const newPlayer = { ...player };
+	const newComputer = { ...computer };
 	const playerAmount = player.currentCard.categories[category];
 	const computerAmount = computer.currentCard.categories[category];
-	let playerState;
-	let computerState;
 	if (playerAmount < computerAmount) {
-		playerState = "lose";
-		computerState = "win";
+		newPlayer.state = "lose";
+		newPlayer.score = player.score - 1;
+		newComputer.state = "win";
+		newComputer.score = computer.score + 1;
 	} else if (playerAmount > computerAmount) {
-		playerState = "win";
-		computerState = "lose";
+		newPlayer.state = "win";
+		newPlayer.score = player.score + 1;
+		newComputer.state = "lose";
+		newComputer.score = computer.score - 1;
 	} else {
-		playerState = "draw";
-		computerState = "draw";
+		newPlayer.state = "draw";
+		newComputer.state = "draw";
 	}
+
+	_.remove(newPlayer.cards, (card) => card.id === newPlayer.currentCard.id);
+	_.remove(newComputer.cards, (card) => card.id === newComputer.currentCard.id);
+
 	return {
 		...state,
 		player: {
 			...player,
+			...newPlayer,
 			readonly: true,
-			state: playerState,
 		},
 		computer: {
 			...computer,
+			...newComputer,
 			showCard: true,
-			state: computerState,
 		},
 		selectedCategory: category,
 	};

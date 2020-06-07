@@ -7,6 +7,7 @@ class StarWarsDataService {
 	getStarShips() {
 		const query = `{
 			starships {
+				id,
 				name,
 				class,
 				maxAtmospheringSpeed,
@@ -21,6 +22,7 @@ class StarWarsDataService {
 		return request(BASE_URL, query).then((response) =>
 			response.starships.map(
 				({
+					id,
 					name,
 					class: starshipClass,
 					maxAtmospheringSpeed,
@@ -28,6 +30,7 @@ class StarWarsDataService {
 					passengers,
 					films,
 				}) => ({
+					id,
 					title: name,
 					info: [starshipClass],
 					categories: {

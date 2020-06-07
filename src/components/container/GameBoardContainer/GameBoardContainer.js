@@ -20,7 +20,7 @@ export default function GameBoardContainer() {
 
 	return (
 		<GameBoard state={player.state}>
-			<PlayArea type="user" score={player.cards.length}>
+			<PlayArea type="user" score={player.score}>
 				<Card
 					show={player.showCard}
 					state={player.state}
@@ -31,7 +31,7 @@ export default function GameBoardContainer() {
 					selectedCategory={selectedCategory}
 				></Card>
 			</PlayArea>
-			<PlayArea type="computer" score={computer.cards.length}>
+			<PlayArea type="computer" score={computer.score}>
 				<Card
 					show={computer.showCard}
 					state={computer.state}
