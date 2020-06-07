@@ -27,6 +27,7 @@ export function GameStateProvider({ children }) {
 			const cards = await starWarsDataService.getStarShips();
 			value.setCards(cards);
 		})();
+		// eslint-disable-next-line
 	}, []);
 
 	return (
