@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import _ from "lodash";
 
 import { PlayArea, Card, GameBoard } from "../../presentational";
 import { GameStateContext } from "../../../state";
@@ -10,13 +9,24 @@ export default function GameBoardContainer() {
 		player,
 		computer,
 		handleCategoryClick,
-		allCards,
 		selectedCategory,
+		startNewRound,
+		hideCards,
 	} = useContext(GameStateContext);
 
 	if (loading) {
 		return null;
 	}
+
+	const startNewRoundAfterCategoryClick = (category) => {
+		handleCategoryClick(category);
+		setTimeout(() => {
+			hideCards();
+			setTimeout(() => {
+				startNewRound();
+			}, 1000);
+		}, 3000);
+	};
 
 	return (
 		<GameBoard state={player.state}>
@@ -26,7 +36,7 @@ export default function GameBoardContainer() {
 					state={player.state}
 					type="user"
 					data={player.currentCard}
-					handleCategoryClick={handleCategoryClick}
+					handleCategoryClick={startNewRoundAfterCategoryClick}
 					readonly={player.readonly}
 					selectedCategory={selectedCategory}
 				></Card>

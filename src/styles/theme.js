@@ -1,6 +1,7 @@
 const colors = {
 	white: "#ffffff",
 	black: "#000000",
+	darkGrey: "#333333",
 	red: "#FF9AA2",
 	darkRed: "#8a0000",
 	darkOrange: "#FFB7B2",
@@ -27,7 +28,7 @@ export default {
 			background: colors.yellow,
 		},
 		unplayed: {
-			text: colors.black,
+			text: colors.darkGrey,
 			background: colors.white,
 		},
 	},

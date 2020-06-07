@@ -17,10 +17,16 @@ const StyledCardCategory = styled.button`
 	background-color: white;
 	color: black;
 	text-align: left;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #ddd;
+	}
 
 	&:disabled {
 		background-color: white;
 		color: black;
+		cursor: auto;
 	}
 
 	${(props) => {

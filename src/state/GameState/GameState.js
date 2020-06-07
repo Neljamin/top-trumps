@@ -18,6 +18,8 @@ export function GameStateProvider({ children }) {
 		selectedCategory: state.selectedCategory,
 		setCards: (value) => dispatch({ type: actions.SET_CARDS, value }),
 		handleCategoryClick: (value) => dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
+		startNewRound: () => dispatch({ type: actions.START_NEW_ROUND }),
+		hideCards: () => dispatch({ type: actions.HIDE_CARDS }),
 	};
 
 	useEffect(() => {

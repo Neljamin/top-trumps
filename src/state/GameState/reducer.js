@@ -56,16 +56,52 @@ const handleCategoryClick = (state, category) => {
 	return {
 		...state,
 		player: {
-			...player,
 			...newPlayer,
 			readonly: true,
 		},
 		computer: {
-			...computer,
 			...newComputer,
 			showCard: true,
 		},
 		selectedCategory: category,
+	};
+};
+
+const startNewRound = (state) => {
+	const { player, computer } = state;
+	const newPlayer = { ...player };
+	const newComputer = { ...computer };
+	newPlayer.currentCard = newPlayer.cards[0];
+	newComputer.currentCard = newComputer.cards[0];
+	return {
+		...state,
+		player: {
+			...newPlayer,
+			showCard: true,
+			readonly: false,
+		},
+		computer: {
+			...newComputer,
+			showCard: false,
+		},
+		selectedCategory: undefined,
+	};
+};
+
+const hideCards = (state) => {
+	const { player, computer } = state;
+	return {
+		...state,
+		player: {
+			...player,
+			showCard: false,
+			state: undefined,
+		},
+		computer: {
+			...computer,
+			showCard: false,
+			state: undefined,
+		},
 	};
 };
 
@@ -75,6 +111,10 @@ export default function reducer(state, action) {
 			return setCards(state, action.value);
 		case actions.HANDLE_CATEGORY_CLICK:
 			return handleCategoryClick(state, action.value);
+		case actions.START_NEW_ROUND:
+			return startNewRound(state);
+		case actions.HIDE_CARDS:
+			return hideCards(state);
 		default:
 			return state;
 	}
