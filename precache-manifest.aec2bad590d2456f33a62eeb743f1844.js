@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9bcfdfe296ab8b6aff2ec49f2a7616bd",
+    "revision": "06c5bc421e2c6b9cc625e200cc9abefa",
     "url": "/top-trumps/index.html"
   },
   {
-    "revision": "e06eddb6adc5a2c0b670",
+    "revision": "07ac8a69bbdd4d0ae2ca",
     "url": "/top-trumps/static/css/main.44026de0.chunk.css"
   },
   {
-    "revision": "02e33f5f21f3a05e8eef",
-    "url": "/top-trumps/static/js/2.fb83074f.chunk.js"
+    "revision": "79ca443adb2c2631e60d",
+    "url": "/top-trumps/static/js/2.160591d5.chunk.js"
   },
   {
     "revision": "64bea2e190f27355a76963b8cb94bb7b",
-    "url": "/top-trumps/static/js/2.fb83074f.chunk.js.LICENSE.txt"
+    "url": "/top-trumps/static/js/2.160591d5.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "e06eddb6adc5a2c0b670",
-    "url": "/top-trumps/static/js/main.534066ab.chunk.js"
+    "revision": "07ac8a69bbdd4d0ae2ca",
+    "url": "/top-trumps/static/js/main.02f99f9e.chunk.js"
   },
   {
     "revision": "a4ce64c2a7a0659ebea0",
