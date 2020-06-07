@@ -11,7 +11,7 @@ describe("GameState - reducer", () => {
 			const inputState = {};
 			const inputCards = [{ a: 123 }, { b: 312 }, { c: 431 }, { d: 563 }];
 			const inputAction = { type: actions.SET_CARDS, value: inputCards };
-            const resultState = reducer(inputState, inputAction);
+			const resultState = reducer(inputState, inputAction);
 			expect(resultState.totalRounds).toEqual(2); // mocked value
 			expect(resultState.loading).toEqual(false);
 			expect(resultState.gameOver).toEqual(false);
@@ -72,10 +72,15 @@ describe("GameState - reducer", () => {
 				player,
 				computer,
 			};
-			const inputAction = { type: actions.HANDLE_CATEGORY_CLICK, value: selectedCategory };
+			const inputAction = {
+				type: actions.HANDLE_CATEGORY_CLICK,
+				value: selectedCategory,
+			};
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.computer.cards.length).toEqual(1);
-			expect(resultState.computer.cards.includes(computerCurrentCard)).toBeFalsy();
+			expect(
+				resultState.computer.cards.includes(computerCurrentCard)
+			).toBeFalsy();
 			expect(resultState.player.cards.length).toEqual(1);
 			expect(resultState.player.cards.includes(playerCurrentCard)).toBeFalsy();
 		});
@@ -107,7 +112,10 @@ describe("GameState - reducer", () => {
 				player,
 				computer,
 			};
-			const inputAction = { type: actions.HANDLE_CATEGORY_CLICK, value: selectedCategory };
+			const inputAction = {
+				type: actions.HANDLE_CATEGORY_CLICK,
+				value: selectedCategory,
+			};
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.player.state).toEqual("lose");
 			expect(resultState.player.score).toEqual(1);
@@ -142,7 +150,10 @@ describe("GameState - reducer", () => {
 				player,
 				computer,
 			};
-			const inputAction = { type: actions.HANDLE_CATEGORY_CLICK, value: selectedCategory };
+			const inputAction = {
+				type: actions.HANDLE_CATEGORY_CLICK,
+				value: selectedCategory,
+			};
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.player.state).toEqual("win");
 			expect(resultState.player.score).toEqual(3);
@@ -177,7 +188,10 @@ describe("GameState - reducer", () => {
 				player,
 				computer,
 			};
-			const inputAction = { type: actions.HANDLE_CATEGORY_CLICK, value: selectedCategory };
+			const inputAction = {
+				type: actions.HANDLE_CATEGORY_CLICK,
+				value: selectedCategory,
+			};
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.player.state).toEqual("draw");
 			expect(resultState.player.score).toEqual(2);
@@ -192,7 +206,7 @@ describe("GameState - reducer", () => {
 				totalRounds: 2,
 			};
 			const inputAction = { type: actions.START_NEW_ROUND };
-            const resultState = reducer(inputState, inputAction);
+			const resultState = reducer(inputState, inputAction);
 			expect(resultState.gameOver).toBeTruthy();
 		});
 		it("should set the currentCard for the player and computer to the first item in their respective cards array", () => {
@@ -209,7 +223,7 @@ describe("GameState - reducer", () => {
 				},
 			};
 			const inputAction = { type: actions.START_NEW_ROUND };
-            const resultState = reducer(inputState, inputAction);
+			const resultState = reducer(inputState, inputAction);
 			expect(resultState.computer.currentCard).toEqual(firstComputerCard);
 			expect(resultState.player.currentCard).toEqual(firstPlayerCard);
 		});
@@ -227,7 +241,7 @@ describe("GameState - reducer", () => {
 				},
 			};
 			const inputAction = { type: actions.START_NEW_ROUND };
-            const resultState = reducer(inputState, inputAction);
+			const resultState = reducer(inputState, inputAction);
 			expect(resultState.computer.showCard).toEqual(false);
 			expect(resultState.computer.readonly).toEqual(true);
 			expect(resultState.player.showCard).toEqual(true);

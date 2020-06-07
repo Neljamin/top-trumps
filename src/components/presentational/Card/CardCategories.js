@@ -57,7 +57,7 @@ const CardCategories = ({
 	readonly,
 	handleCategoryClick,
 	state,
-	selectedCategory
+	selectedCategory,
 }) => (
 	<StyledCardCategories>
 		{Object.entries(categories).map(([key, value], index) => (

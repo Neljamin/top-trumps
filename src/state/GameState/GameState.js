@@ -20,7 +20,8 @@ export function GameStateProvider({ children }) {
 		totalRounds: state.totalRounds,
 		currentRound: state.currentRound,
 		setCards: (value) => dispatch({ type: actions.SET_CARDS, value }),
-		handleCategoryClick: (value) => dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
+		handleCategoryClick: (value) =>
+			dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
 		startNewRound: () => dispatch({ type: actions.START_NEW_ROUND }),
 		hideCards: () => dispatch({ type: actions.HIDE_CARDS }),
 		newGame: (value) => dispatch({ type: actions.NEW_GAME, value }),

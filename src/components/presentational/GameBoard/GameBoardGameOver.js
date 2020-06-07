@@ -19,24 +19,24 @@ const MESSAGES = {
 };
 
 const ICONS = {
-    win: "fas fa-trophy",
-    lose: "fas fa-sad-tear",
-    draw: "fas fa-equals",
+	win: "fas fa-trophy",
+	lose: "fas fa-sad-tear",
+	draw: "fas fa-equals",
 };
 
 const StyledGameOverScreen = styled.div`
-    position: absolute;
-    display: flex;
+	position: absolute;
+	display: flex;
 	left: 0;
 	top: 0;
 	height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
 	transition: transform 1.2s, background-color 1.2s;
-    transform: translateY(${(props) => (props.gameOver ? "0" : "-100%")});
+	transform: translateY(${(props) => (props.gameOver ? "0" : "-100%")});
 
-    ${(props) => {
+	${(props) => {
 		const stateProps = _.get(props, ["theme", "gameState", props.state], {});
 		return css`
 			background-color: ${stateProps.background};
@@ -47,13 +47,13 @@ const StyledGameOverScreen = styled.div`
 
 const StyledGameOverScreenMessage = styled.div`
 	position: relative;
-    display: flex;
+	display: flex;
 	height: 400px;
 	width: 320px;
-    flex-direction: column;
+	flex-direction: column;
 	align-items: center;
-    justify-content: center;
-    text-align: center;
+	justify-content: center;
+	text-align: center;
 `;
 
 const StyledGameOverScreenMessageTitle = styled.h1`
@@ -67,12 +67,12 @@ const StyledGameOverScreenMessageSubtitle = styled.h1`
 `;
 
 const StyledGameOverScreenMessageIcon = styled.div`
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    height: 64px;
-    width: 64px;
-    font-size: 64px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	height: 64px;
+	width: 64px;
+	font-size: 64px;
 `;
 
 const StyledPlayAgainButton = styled.button`
@@ -82,7 +82,7 @@ const StyledPlayAgainButton = styled.button`
 	border-radius: 3px;
 	background-color: white;
 	color: #777;
-    cursor: pointer;
+	cursor: pointer;
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3), 5px 4px 0 rgba(0, 0, 0, 0.22);
 `;
 
@@ -97,8 +97,8 @@ const getEndGameState = (player, computer) => {
 };
 
 const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
-    const state = getEndGameState(player, computer);
-    return (
+	const state = getEndGameState(player, computer);
+	return (
 		<StyledGameOverScreen state={state} gameOver={gameOver}>
 			{gameOver && (
 				<StyledGameOverScreenMessage>
@@ -125,8 +125,8 @@ const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
 GameBoardGameOver.propType = {
 	computer: PropTypes.object.isRequired,
 	player: PropTypes.object.isRequired,
-    gameOver: PropTypes.bool.isRequired,
-    playAgain: PropTypes.func,
+	gameOver: PropTypes.bool.isRequired,
+	playAgain: PropTypes.func,
 };
 
 export default GameBoardGameOver;
