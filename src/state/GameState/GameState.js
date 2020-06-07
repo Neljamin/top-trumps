@@ -16,6 +16,8 @@ export function GameStateProvider({ children }) {
 		player: state.player,
 		computer: state.computer,
 		selectedCategory: state.selectedCategory,
+		totalRounds: state.totalRounds,
+		currentRound: state.currentRound,
 		setCards: (value) => dispatch({ type: actions.SET_CARDS, value }),
 		handleCategoryClick: (value) => dispatch({ type: actions.HANDLE_CATEGORY_CLICK, value }),
 		startNewRound: () => dispatch({ type: actions.START_NEW_ROUND }),

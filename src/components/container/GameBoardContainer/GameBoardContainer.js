@@ -12,6 +12,8 @@ export default function GameBoardContainer() {
 		selectedCategory,
 		startNewRound,
 		hideCards,
+		totalRounds,
+		currentRound,
 	} = useContext(GameStateContext);
 
 	if (loading) {
@@ -29,7 +31,11 @@ export default function GameBoardContainer() {
 	};
 
 	return (
-		<GameBoard state={player.state}>
+		<GameBoard
+			state={player.state}
+			totalRounds={totalRounds}
+			currentRound={currentRound}
+		>
 			<PlayArea type="user" score={player.score}>
 				<Card
 					show={player.showCard}

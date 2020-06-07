@@ -10,6 +10,8 @@ const setCards = (state, cards) => {
 	return {
 		...state,
 		loading: false,
+		currentRound: 1,
+		totalRounds: cards.length / 2,
 		allCards: cards,
 		player: {
 			...player,
@@ -68,13 +70,14 @@ const handleCategoryClick = (state, category) => {
 };
 
 const startNewRound = (state) => {
-	const { player, computer } = state;
+	const { player, computer, currentRound } = state;
 	const newPlayer = { ...player };
 	const newComputer = { ...computer };
 	newPlayer.currentCard = newPlayer.cards[0];
 	newComputer.currentCard = newComputer.cards[0];
 	return {
 		...state,
+		currentRound: currentRound + 1,
 		player: {
 			...newPlayer,
 			showCard: true,

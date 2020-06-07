@@ -24,7 +24,7 @@ const StyledGameBoard = styled.div`
 	}
 `;
 
-const SytledGameBoardStatus = styled.span`
+const StyledGameBoardStatus = styled.span`
 	position: absolute;
 	display: flex;
 	height: 64px;
@@ -48,17 +48,30 @@ const SytledGameBoardStatus = styled.span`
 	}};
 `;
 
-const GameBoard = ({ children, state }) => (
+const StyledRoundCounter = styled.span`
+	position: absolute;
+	top: 0;
+	right: 0;
+	box-sizing: border-box;
+	padding: 8px;
+`;
+
+const GameBoard = ({ children, state, currentRound, totalRounds }) => (
 	<StyledGameBoard>
 		{children}
-		<SytledGameBoardStatus state={state}>
+		<StyledGameBoardStatus state={state}>
 			{STATE_MESSAGE[state]}
-		</SytledGameBoardStatus>
+		</StyledGameBoardStatus>
+		<StyledRoundCounter>
+			Round {currentRound} / {totalRounds}
+		</StyledRoundCounter>
 	</StyledGameBoard>
 );
 
 GameBoard.propType = {
 	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+	currentRound: PropTypes.number,
+	totalRounds: PropTypes.number,
 };
 
 GameBoard.defaultProps = {
