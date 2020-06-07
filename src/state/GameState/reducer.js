@@ -1,18 +1,20 @@
 import _ from "lodash";
 
 import actions from "./actions";
-import { shuffleCards, splitCardsInHalf } from "./helpers";
+import { shuffleCards, splitCardsInHalf, getCardsForRounds } from "./helpers";
+import config from "../../environment/config";
 
 const setCards = (state, cards) => {
 	const { player, computer } = state;
-	const shuffledCards = shuffleCards(cards);
+	const cardsForGame = getCardsForRounds(cards, config.numberOfRounds);
+	const shuffledCards = shuffleCards(cardsForGame);
 	const [playerCards, computerCards] = splitCardsInHalf(shuffledCards);
 	return {
 		...state,
 		loading: false,
 		gameOver: false,
 		currentRound: 1,
-		totalRounds: cards.length / 2,
+		totalRounds: config.numberOfRounds,
 		allCards: cards,
 		player: {
 			...player,

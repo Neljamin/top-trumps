@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const shuffleCards = (cards) => cards.sort(() => Math.random() - 0.5);
 export const splitCardsInHalf = (cards) => {
 	if (cards.length % 2 === 1) {
@@ -15,4 +17,7 @@ export const splitCardsInHalf = (cards) => {
 	});
 
 	return [firstHalf, secondHalf];
+};
+export const getCardsForRounds = (cards, numberOfRounds) => {
+	return _.take(cards, numberOfRounds * 2);
 };
