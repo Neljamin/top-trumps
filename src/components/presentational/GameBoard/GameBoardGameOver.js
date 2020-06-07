@@ -75,6 +75,17 @@ const StyledGameOverScreenMessageIcon = styled.div`
     font-size: 64px;
 `;
 
+const StyledPlayAgainButton = styled.button`
+	margin: 16px 0;
+	padding: 8px;
+	border: none;
+	border-radius: 3px;
+	background-color: white;
+	color: #777;
+    cursor: pointer;
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3), 5px 4px 0 rgba(0, 0, 0, 0.22);
+`;
+
 const getEndGameState = (player, computer) => {
 	if (player.score < computer.score) {
 		return "lose";
@@ -84,7 +95,7 @@ const getEndGameState = (player, computer) => {
 	return "draw";
 };
 
-const GameBoardGameOver = ({ computer, player, gameOver }) => {
+const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
     const state = getEndGameState(player, computer);
 
     return (
@@ -96,11 +107,15 @@ const GameBoardGameOver = ({ computer, player, gameOver }) => {
 				<StyledGameOverScreenMessageSubtitle>
 					{MESSAGES[state].subtitle}
 				</StyledGameOverScreenMessageSubtitle>
+				{/* conditional render because of fontawesome */}
 				{gameOver && (
 					<StyledGameOverScreenMessageIcon>
 						<i className={ICONS[state]} />
 					</StyledGameOverScreenMessageIcon>
 				)}
+				<StyledPlayAgainButton onClick={playAgain}>
+					Play Again?
+				</StyledPlayAgainButton>
 			</StyledGameOverScreenMessage>
 		</StyledGameOverScreen>
 	);
@@ -109,7 +124,8 @@ const GameBoardGameOver = ({ computer, player, gameOver }) => {
 GameBoardGameOver.propType = {
 	computer: PropTypes.object.isRequired,
 	player: PropTypes.object.isRequired,
-	gameOver: PropTypes.bool.isRequired,
+    gameOver: PropTypes.bool.isRequired,
+    playAgain: PropTypes.func,
 };
 
 export default GameBoardGameOver;

@@ -31,6 +31,10 @@ export default function GameBoardContainer() {
 		}, 3000);
 	};
 
+	const playAgain = () => {
+		console.log("play again");
+	}
+
 	return (
 		<GameBoard
 			gameOver={gameOver}
@@ -39,6 +43,7 @@ export default function GameBoardContainer() {
 			currentRound={currentRound}
 			computer={computer}
 			player={player}
+			playAgain={playAgain}
 		>
 			<PlayArea type="user" score={player.score}>
 				<Card
