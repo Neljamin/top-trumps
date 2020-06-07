@@ -12,6 +12,7 @@ export function GameStateProvider({ children }) {
 
 	const value = {
 		loading: state.loading,
+		gameOver: state.gameOver,
 		allCards: state.allCards,
 		player: state.player,
 		computer: state.computer,
@@ -27,7 +28,8 @@ export function GameStateProvider({ children }) {
 	useEffect(() => {
 		(async function loadCards() {
 			const cards = await starWarsDataService.getStarShips();
-			value.setCards(cards);
+			const tempoarilySetCards = [cards[0], cards[1]];
+			value.setCards(tempoarilySetCards);
 		})();
 		// eslint-disable-next-line
 	}, []);

@@ -10,6 +10,7 @@ const setCards = (state, cards) => {
 	return {
 		...state,
 		loading: false,
+		gameOver: false,
 		currentRound: 1,
 		totalRounds: cards.length / 2,
 		allCards: cards,
@@ -70,14 +71,24 @@ const handleCategoryClick = (state, category) => {
 };
 
 const startNewRound = (state) => {
-	const { player, computer, currentRound } = state;
+	const { player, computer, currentRound, totalRounds } = state;
 	const newPlayer = { ...player };
 	const newComputer = { ...computer };
+	const nextRound = currentRound + 1;
+
+	if (nextRound > totalRounds) {
+		return {
+			...state,
+			gameOver: true,
+		};
+	}
+
 	newPlayer.currentCard = newPlayer.cards[0];
 	newComputer.currentCard = newComputer.cards[0];
+
 	return {
 		...state,
-		currentRound: currentRound + 1,
+		currentRound: nextRound,
 		player: {
 			...newPlayer,
 			showCard: true,

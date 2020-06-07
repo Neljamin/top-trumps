@@ -4,12 +4,14 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 
 import { breakpoints } from "../../../styles";
+import GameBoardGameOver from "./GameBoardGameOver";
 
 const STATE_MESSAGE = {
 	unplayed: "?",
 	win: "You Win!",
 	lose: "You Lose!",
 	draw: "You Draw!",
+	gameOver: "Game Over!",
 };
 
 const StyledGameBoard = styled.div`
@@ -56,7 +58,15 @@ const StyledRoundCounter = styled.span`
 	padding: 8px;
 `;
 
-const GameBoard = ({ children, state, currentRound, totalRounds }) => (
+const GameBoard = ({
+	children,
+	state,
+	currentRound,
+	totalRounds,
+	gameOver,
+	computer,
+	player,
+}) => (
 	<StyledGameBoard>
 		{children}
 		<StyledGameBoardStatus state={state}>
@@ -65,6 +75,11 @@ const GameBoard = ({ children, state, currentRound, totalRounds }) => (
 		<StyledRoundCounter>
 			Round {currentRound} / {totalRounds}
 		</StyledRoundCounter>
+		<GameBoardGameOver
+			gameOver={gameOver}
+			computer={computer}
+			player={player}
+		/>
 	</StyledGameBoard>
 );
 
@@ -72,6 +87,9 @@ GameBoard.propType = {
 	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
 	currentRound: PropTypes.number,
 	totalRounds: PropTypes.number,
+	gameOver: PropTypes.bool.isRequired,
+	player: PropTypes.object,
+	computer: PropTypes.object,
 };
 
 GameBoard.defaultProps = {
