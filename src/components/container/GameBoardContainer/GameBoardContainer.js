@@ -6,7 +6,7 @@ import { GameStateContext } from "../../../state";
 export default function GameBoardContainer() {
 	const {
 		loading,
-		player,
+		user,
 		computer,
 		handleCategoryClick,
 		selectedCategory,
@@ -35,21 +35,21 @@ export default function GameBoardContainer() {
 	return (
 		<GameBoard
 			gameOver={gameOver}
-			state={player.state}
+			state={user.state}
 			totalRounds={totalRounds}
 			currentRound={currentRound}
 			computer={computer}
-			player={player}
+			user={user}
 			playAgain={newGame}
 		>
-			<PlayArea type="user" score={player.score}>
+			<PlayArea type="user" score={user.score}>
 				<Card
-					show={player.showCard}
-					state={player.state}
+					show={user.showCard}
+					state={user.state}
 					type="user"
-					data={player.currentCard}
+					data={user.currentCard}
 					handleCategoryClick={startNewRoundAfterCategoryClick}
-					readonly={player.readonly}
+					readonly={user.readonly}
 					selectedCategory={selectedCategory}
 				></Card>
 			</PlayArea>

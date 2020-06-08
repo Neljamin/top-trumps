@@ -14,7 +14,7 @@ export function GameStateProvider({ children }) {
 		loading: state.loading,
 		gameOver: state.gameOver,
 		allCards: state.allCards,
-		player: state.player,
+		user: state.user,
 		computer: state.computer,
 		selectedCategory: state.selectedCategory,
 		totalRounds: state.totalRounds,

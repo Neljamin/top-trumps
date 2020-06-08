@@ -4,7 +4,7 @@ export default {
 	totalRounds: 0,
 	currentRound: 0,
 	allCards: [],
-	player: {
+	user: {
 		showCard: false,
 		readonly: false,
 		cards: [],

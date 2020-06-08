@@ -5,10 +5,10 @@ import { shuffleCards, splitCardsInHalf, getCardsForRounds } from "./helpers";
 import config from "../../environment/config";
 
 const setCards = (state, cards) => {
-	const { player, computer } = state;
+	const { user, computer } = state;
 	const cardsForGame = getCardsForRounds(cards, config.numberOfRounds);
 	const shuffledCards = shuffleCards(cardsForGame);
-	const [playerCards, computerCards] = splitCardsInHalf(shuffledCards);
+	const [userCards, computerCards] = splitCardsInHalf(shuffledCards);
 	return {
 		...state,
 		loading: false,
@@ -16,13 +16,13 @@ const setCards = (state, cards) => {
 		currentRound: 1,
 		totalRounds: config.numberOfRounds,
 		allCards: cards,
-		player: {
-			...player,
+		user: {
+			...user,
 			readonly: false,
 			showCard: true,
-			currentCard: playerCards[0],
-			cards: playerCards,
-			score: playerCards.length,
+			currentCard: userCards[0],
+			cards: userCards,
+			score: userCards.length,
 			state: undefined,
 		},
 		computer: {
@@ -38,33 +38,33 @@ const setCards = (state, cards) => {
 };
 
 const handleCategoryClick = (state, category) => {
-	const { player, computer } = state;
-	const newPlayer = { ...player };
+	const { user, computer } = state;
+	const newUser = { ...user };
 	const newComputer = { ...computer };
-	const playerAmount = player.currentCard.categories[category];
+	const userAmount = user.currentCard.categories[category];
 	const computerAmount = computer.currentCard.categories[category];
-	if (playerAmount < computerAmount) {
-		newPlayer.state = "lose";
-		newPlayer.score = player.score - 1;
+	if (userAmount < computerAmount) {
+		newUser.state = "lose";
+		newUser.score = user.score - 1;
 		newComputer.state = "win";
 		newComputer.score = computer.score + 1;
-	} else if (playerAmount > computerAmount) {
-		newPlayer.state = "win";
-		newPlayer.score = player.score + 1;
+	} else if (userAmount > computerAmount) {
+		newUser.state = "win";
+		newUser.score = user.score + 1;
 		newComputer.state = "lose";
 		newComputer.score = computer.score - 1;
 	} else {
-		newPlayer.state = "draw";
+		newUser.state = "draw";
 		newComputer.state = "draw";
 	}
 
-	_.remove(newPlayer.cards, (card) => card.id === newPlayer.currentCard.id);
+	_.remove(newUser.cards, (card) => card.id === newUser.currentCard.id);
 	_.remove(newComputer.cards, (card) => card.id === newComputer.currentCard.id);
 
 	return {
 		...state,
-		player: {
-			...newPlayer,
+		user: {
+			...newUser,
 			readonly: true,
 		},
 		computer: {
@@ -76,8 +76,8 @@ const handleCategoryClick = (state, category) => {
 };
 
 const startNewRound = (state) => {
-	const { player, computer, currentRound, totalRounds } = state;
-	const newPlayer = { ...player };
+	const { user, computer, currentRound, totalRounds } = state;
+	const newUser = { ...user };
 	const newComputer = { ...computer };
 	const nextRound = currentRound + 1;
 
@@ -88,14 +88,14 @@ const startNewRound = (state) => {
 		};
 	}
 
-	newPlayer.currentCard = newPlayer.cards[0];
+	newUser.currentCard = newUser.cards[0];
 	newComputer.currentCard = newComputer.cards[0];
 
 	return {
 		...state,
 		currentRound: nextRound,
-		player: {
-			...newPlayer,
+		user: {
+			...newUser,
 			showCard: true,
 			readonly: false,
 		},
@@ -109,11 +109,11 @@ const startNewRound = (state) => {
 };
 
 const hideCards = (state) => {
-	const { player, computer } = state;
+	const { user, computer } = state;
 	return {
 		...state,
-		player: {
-			...player,
+		user: {
+			...user,
 			showCard: false,
 			state: undefined,
 		},

@@ -86,18 +86,18 @@ const StyledPlayAgainButton = styled.button`
 	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3), 5px 4px 0 rgba(0, 0, 0, 0.22);
 `;
 
-const getEndGameState = (player, computer) => {
-	if (player.score < computer.score) {
+const getEndGameState = (user, computer) => {
+	if (user.score < computer.score) {
 		return "lose";
-	} else if (player.score > computer.score) {
+	} else if (user.score > computer.score) {
 		return "win";
-	} else if (player.score === computer.score) {
+	} else if (user.score === computer.score) {
 		return "draw";
 	}
 };
 
-const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
-	const state = getEndGameState(player, computer);
+const GameBoardGameOver = ({ computer, user, gameOver, playAgain }) => {
+	const state = getEndGameState(user, computer);
 	return (
 		<StyledGameOverScreen state={state} gameOver={gameOver}>
 			{gameOver && (
@@ -124,7 +124,7 @@ const GameBoardGameOver = ({ computer, player, gameOver, playAgain }) => {
 
 GameBoardGameOver.propType = {
 	computer: PropTypes.object.isRequired,
-	player: PropTypes.object.isRequired,
+	user: PropTypes.object.isRequired,
 	gameOver: PropTypes.bool.isRequired,
 	playAgain: PropTypes.func,
 };

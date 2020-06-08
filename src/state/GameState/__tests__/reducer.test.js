@@ -18,18 +18,18 @@ describe("GameState - reducer", () => {
 			expect(resultState.currentRound).toEqual(1);
 			expect(resultState.allCards).toEqual(inputCards);
 		});
-		it("should set player object correctly", () => {
+		it("should set user object correctly", () => {
 			const inputState = {};
 			const inputCards = [{ a: 534 }, { b: 345 }, { c: 444 }, { d: 555 }];
 			const inputAction = { type: actions.SET_CARDS, value: inputCards };
 			const resultState = reducer(inputState, inputAction);
-			const resultPlayer = resultState.player;
-			expect(resultPlayer.readonly).toEqual(false);
-			expect(resultPlayer.showCard).toEqual(true);
-			expect(typeof resultPlayer.currentCard).toEqual("object");
-			expect(resultPlayer.cards.length).toEqual(2);
-			expect(resultPlayer.score).toEqual(2);
-			expect(resultPlayer.state).toEqual(undefined);
+			const resultUser = resultState.user;
+			expect(resultUser.readonly).toEqual(false);
+			expect(resultUser.showCard).toEqual(true);
+			expect(typeof resultUser.currentCard).toEqual("object");
+			expect(resultUser.cards.length).toEqual(2);
+			expect(resultUser.score).toEqual(2);
+			expect(resultUser.state).toEqual(undefined);
 		});
 		it("should set computer object correctly", () => {
 			const inputState = {};
@@ -46,17 +46,17 @@ describe("GameState - reducer", () => {
 		});
 	});
 	describe("HANDLE_CATEGORY_CLICK", () => {
-		it("should remove player and computer current card", () => {
+		it("should remove user and computer current card", () => {
 			const selectedCategory = "selectedCategory";
-			const playerCurrentCard = {
+			const userCurrentCard = {
 				id: 123,
 				categories: {
 					selectedCategory: 500,
 				},
 			};
-			const player = {
-				currentCard: playerCurrentCard,
-				cards: [playerCurrentCard, { id: 999 }],
+			const user = {
+				currentCard: userCurrentCard,
+				cards: [userCurrentCard, { id: 999 }],
 			};
 			const computerCurrentCard = {
 				id: 124,
@@ -69,7 +69,7 @@ describe("GameState - reducer", () => {
 				cards: [computerCurrentCard, { id: 321 }],
 			};
 			const inputState = {
-				player,
+				user,
 				computer,
 			};
 			const inputAction = {
@@ -81,21 +81,21 @@ describe("GameState - reducer", () => {
 			expect(
 				resultState.computer.cards.includes(computerCurrentCard)
 			).toBeFalsy();
-			expect(resultState.player.cards.length).toEqual(1);
-			expect(resultState.player.cards.includes(playerCurrentCard)).toBeFalsy();
+			expect(resultState.user.cards.length).toEqual(1);
+			expect(resultState.user.cards.includes(userCurrentCard)).toBeFalsy();
 		});
-		it("should set player state to 'lose' and computer state to 'win' when computer category is higher score and adjust scores accordingly", () => {
+		it("should set user state to 'lose' and computer state to 'win' when computer category is higher score and adjust scores accordingly", () => {
 			const selectedCategory = "selectedCategory";
-			const playerCurrentCard = {
+			const userCurrentCard = {
 				id: 343,
 				categories: {
 					selectedCategory: 500,
 				},
 			};
-			const player = {
+			const user = {
 				score: 2,
-				currentCard: playerCurrentCard,
-				cards: [playerCurrentCard, { id: 333 }],
+				currentCard: userCurrentCard,
+				cards: [userCurrentCard, { id: 333 }],
 			};
 			const computerCurrentCard = {
 				id: 1234,
@@ -109,7 +109,7 @@ describe("GameState - reducer", () => {
 				cards: [computerCurrentCard, { id: 444 }],
 			};
 			const inputState = {
-				player,
+				user,
 				computer,
 			};
 			const inputAction = {
@@ -117,23 +117,23 @@ describe("GameState - reducer", () => {
 				value: selectedCategory,
 			};
 			const resultState = reducer(inputState, inputAction);
-			expect(resultState.player.state).toEqual("lose");
-			expect(resultState.player.score).toEqual(1);
+			expect(resultState.user.state).toEqual("lose");
+			expect(resultState.user.score).toEqual(1);
 			expect(resultState.computer.state).toEqual("win");
 			expect(resultState.computer.score).toEqual(3);
 		});
-		it("should set player state to 'win' and computer state to 'lose' when player category is higher score and adjust scores accordingly", () => {
+		it("should set user state to 'win' and computer state to 'lose' when user category is higher score and adjust scores accordingly", () => {
 			const selectedCategory = "selectedCategory";
-			const playerCurrentCard = {
+			const userCurrentCard = {
 				id: 343,
 				categories: {
 					selectedCategory: 872394792347897,
 				},
 			};
-			const player = {
+			const user = {
 				score: 2,
-				currentCard: playerCurrentCard,
-				cards: [playerCurrentCard, { id: 333 }],
+				currentCard: userCurrentCard,
+				cards: [userCurrentCard, { id: 333 }],
 			};
 			const computerCurrentCard = {
 				id: 1234,
@@ -147,7 +147,7 @@ describe("GameState - reducer", () => {
 				cards: [computerCurrentCard, { id: 444 }],
 			};
 			const inputState = {
-				player,
+				user,
 				computer,
 			};
 			const inputAction = {
@@ -155,23 +155,23 @@ describe("GameState - reducer", () => {
 				value: selectedCategory,
 			};
 			const resultState = reducer(inputState, inputAction);
-			expect(resultState.player.state).toEqual("win");
-			expect(resultState.player.score).toEqual(3);
+			expect(resultState.user.state).toEqual("win");
+			expect(resultState.user.score).toEqual(3);
 			expect(resultState.computer.state).toEqual("lose");
 			expect(resultState.computer.score).toEqual(1);
 		});
-		it("should set both computer and player state to 'draw' when category scores are the same, overall scores should not change", () => {
+		it("should set both computer and user state to 'draw' when category scores are the same, overall scores should not change", () => {
 			const selectedCategory = "selectedCategory";
-			const playerCurrentCard = {
+			const userCurrentCard = {
 				id: 343,
 				categories: {
 					selectedCategory: 100,
 				},
 			};
-			const player = {
+			const user = {
 				score: 2,
-				currentCard: playerCurrentCard,
-				cards: [playerCurrentCard, { id: 333 }],
+				currentCard: userCurrentCard,
+				cards: [userCurrentCard, { id: 333 }],
 			};
 			const computerCurrentCard = {
 				id: 1234,
@@ -185,7 +185,7 @@ describe("GameState - reducer", () => {
 				cards: [computerCurrentCard, { id: 444 }],
 			};
 			const inputState = {
-				player,
+				user,
 				computer,
 			};
 			const inputAction = {
@@ -193,8 +193,8 @@ describe("GameState - reducer", () => {
 				value: selectedCategory,
 			};
 			const resultState = reducer(inputState, inputAction);
-			expect(resultState.player.state).toEqual("draw");
-			expect(resultState.player.score).toEqual(2);
+			expect(resultState.user.state).toEqual("draw");
+			expect(resultState.user.score).toEqual(2);
 			expect(resultState.computer.state).toEqual("draw");
 			expect(resultState.computer.score).toEqual(2);
 		});
@@ -209,14 +209,14 @@ describe("GameState - reducer", () => {
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.gameOver).toBeTruthy();
 		});
-		it("should set the currentCard for the player and computer to the first item in their respective cards array", () => {
-			const firstPlayerCard = { id: 123 };
+		it("should set the currentCard for the user and computer to the first item in their respective cards array", () => {
+			const firstUserCard = { id: 123 };
 			const firstComputerCard = { id: 430 };
 			const inputState = {
 				currentRound: 1,
 				totalRounds: 2,
-				player: {
-					cards: [firstPlayerCard, { id: 43243 }],
+				user: {
+					cards: [firstUserCard, { id: 43243 }],
 				},
 				computer: {
 					cards: [firstComputerCard, { id: 43243 }],
@@ -225,16 +225,16 @@ describe("GameState - reducer", () => {
 			const inputAction = { type: actions.START_NEW_ROUND };
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.computer.currentCard).toEqual(firstComputerCard);
-			expect(resultState.player.currentCard).toEqual(firstPlayerCard);
+			expect(resultState.user.currentCard).toEqual(firstUserCard);
 		});
-		it("should set player and computer properties correctly", () => {
-			const firstPlayerCard = { id: 123 };
+		it("should set user and computer properties correctly", () => {
+			const firstUserCard = { id: 123 };
 			const firstComputerCard = { id: 430 };
 			const inputState = {
 				currentRound: 1,
 				totalRounds: 2,
-				player: {
-					cards: [firstPlayerCard, { id: 43243 }],
+				user: {
+					cards: [firstUserCard, { id: 43243 }],
 				},
 				computer: {
 					cards: [firstComputerCard, { id: 43243 }],
@@ -244,16 +244,16 @@ describe("GameState - reducer", () => {
 			const resultState = reducer(inputState, inputAction);
 			expect(resultState.computer.showCard).toEqual(false);
 			expect(resultState.computer.readonly).toEqual(true);
-			expect(resultState.player.showCard).toEqual(true);
-			expect(resultState.player.readonly).toEqual(false);
+			expect(resultState.user.showCard).toEqual(true);
+			expect(resultState.user.readonly).toEqual(false);
 		});
 	});
 	describe("HIDE_CARDS", () => {
-		it("should set showCard to false and state to undefined for player and computer", () => {
+		it("should set showCard to false and state to undefined for user and computer", () => {
 			const inputState = {
 				currentRound: 1,
 				totalRounds: 2,
-				player: {
+				user: {
 					cards: [{ id: 432 }, { id: 43243 }],
 				},
 				computer: {
@@ -262,8 +262,8 @@ describe("GameState - reducer", () => {
 			};
 			const inputAction = { type: actions.HIDE_CARDS };
 			const resultState = reducer(inputState, inputAction);
-			expect(resultState.player.showCard).toEqual(false);
-			expect(resultState.player.state).toBeFalsy();
+			expect(resultState.user.showCard).toEqual(false);
+			expect(resultState.user.state).toBeFalsy();
 			expect(resultState.computer.showCard).toEqual(false);
 			expect(resultState.computer.state).toBeFalsy();
 		});

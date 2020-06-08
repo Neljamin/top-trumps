@@ -65,7 +65,7 @@ const GameBoard = ({
 	totalRounds,
 	gameOver,
 	computer,
-	player,
+	user,
 	playAgain,
 }) => (
 	<StyledGameBoard>
@@ -80,7 +80,7 @@ const GameBoard = ({
 			playAgain={playAgain}
 			gameOver={gameOver}
 			computer={computer}
-			player={player}
+			user={user}
 		/>
 	</StyledGameBoard>
 );
@@ -90,7 +90,7 @@ GameBoard.propType = {
 	currentRound: PropTypes.number,
 	totalRounds: PropTypes.number,
 	gameOver: PropTypes.bool.isRequired,
-	player: PropTypes.object,
+	user: PropTypes.object,
 	computer: PropTypes.object,
 	playAgain: PropTypes.func,
 };
