@@ -9,8 +9,7 @@ import CardBackFace from "./CardBackFace";
 
 const StyledCard = styled.div`
 	position: relative;
-	display: flex;
-	height: 200px;
+	min-height: 200px;
 	width: 100%;
 	max-width: 400px;
 	margin: 0 16px;
@@ -19,7 +18,7 @@ const StyledCard = styled.div`
 	transform: rotateY(${(props) => (props.show ? "0deg" : "180deg")});
 
 	@media ${breakpoints.tablet} {
-		height: 400px;
+		min-height: 400px;
 		max-width: 270px;
 	}
 `;
