@@ -36,14 +36,16 @@ const StyledCardFace = styled.div`
 	width: 100%;
 	flex-direction: column;
 	backface-visibility: hidden;
-	background-color: white;
 	border-radius: 20px;
 	box-shadow: 8px 5px 0 rgba(0, 0, 0, 0.3), 11px 10px 0 rgba(0, 0, 0, 0.22);
 `;
 
-const StyledCardFrontface = styled(StyledCardFace)``;
+const StyledCardFrontface = styled(StyledCardFace)`
+	background-color: ${props => props.theme[props.type].frontFace.background};
+`;
 
 const StyledCardBackface = styled(StyledCardFace)`
+	background-color: ${props => props.theme[props.type].backFace.background};
 	transform: rotateY(180deg);
 `;
 
@@ -57,9 +59,10 @@ const Card = ({
 	selectedCategory,
 }) => (
 	<StyledCard show={show}>
-		<StyledCardFrontface>
+		<StyledCardFrontface type={type}>
 			<CardDescription type={type} title={data.title} info={data.info} />
 			<CardCategories
+				type={type}
 				state={state}
 				readonly={readonly}
 				categories={data.categories}
@@ -67,7 +70,7 @@ const Card = ({
 				selectedCategory={selectedCategory}
 			/>
 		</StyledCardFrontface>
-		<StyledCardBackface>
+		<StyledCardBackface type={type}>
 			<CardBackFace type={type} />
 		</StyledCardBackface>
 	</StyledCard>

@@ -14,18 +14,18 @@ const StyledCardCategory = styled.button`
 	margin-bottom: 2px;
 	justify-content: space-between;
 	border: 1px #ccc solid;
-	background-color: white;
-	color: black;
+	background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackground'])};
+	color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
 	text-align: left;
 	cursor: pointer;
 
 	&:hover {
-		background-color: #ddd;
+		background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackgroundHover'])};
 	}
 
 	&:disabled {
-		background-color: white;
-		color: black;
+		background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackground'])};
+		color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
 		cursor: auto;
 	}
 
@@ -53,6 +53,7 @@ const StyledCardCategoryValue = styled.div`
 `;
 
 const CardCategories = ({
+	type,
 	categories,
 	readonly,
 	handleCategoryClick,
@@ -63,6 +64,7 @@ const CardCategories = ({
 		{Object.entries(categories).map(([key, value], index) => (
 			<StyledCardCategory
 				key={index}
+				type={type}
 				disabled={readonly}
 				onClick={() => handleCategoryClick(key)}
 				state={selectedCategory === key && state}
@@ -75,6 +77,7 @@ const CardCategories = ({
 );
 
 CardCategories.propTypes = {
+	
 	categories: PropTypes.object,
 	readonly: PropTypes.bool,
 	handleCategoryClick: (props, propName) => {
@@ -84,6 +87,7 @@ CardCategories.propTypes = {
 	},
 	state: PropTypes.oneOf(["win", "lose", "draw", "unplayed"]),
 	selectedCategory: PropTypes.string,
+	type: PropTypes.oneOf(["user", "computer"]).isRequired,
 };
 
 CardCategories.defaultProps = {

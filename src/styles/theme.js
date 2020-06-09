@@ -2,15 +2,16 @@ const colors = {
 	white: "#ffffff",
 	black: "#000000",
 	darkGrey: "#333333",
+	lightGrey: "#DDDDDD",
 	red: "#FF9AA2",
-	darkRed: "#8a0000",
+	darkRed: "#8A0000",
 	darkOrange: "#FFB7B2",
 	orange: "#FFDAC1",
 	yellow: "#FFFFD1",
 	lightGreen: "#E2F0CB",
 	green: "#B5EAD7",
 	darkGreen: "#546940",
-	blue: "#a5d6f7",
+	blue: "#A5D6F7",
 };
 
 export default {
@@ -34,8 +35,36 @@ export default {
 	},
 	user: {
 		background: colors.blue,
+		backgroundImage: '',
+		scoreColor: colors.black,
+		frontFace: {
+			background: colors.white,
+			textColor: colors.black,
+			categoryBackground: colors.white,
+			categoryBackgroundHover: colors.lightGrey,
+		},
+		backFace: {
+			background: colors.white,
+			innerBackgroundColor: colors.white,
+			innerBackgroundImage: '',
+			avatarIconColor: colors.darkGrey,
+		}
 	},
 	computer: {
 		background: colors.orange,
+		backgroundImage: '',
+		scoreColor: colors.black,
+		frontFace: {
+			background: colors.white,
+			textColor: colors.black,
+			categoryBackground: colors.white,
+			categoryBackgroundHover: colors.lightGrey,
+		},
+		backFace: {
+			background: colors.white,
+			innerBackgroundColor: colors.white,
+			innerBackgroundImage: '',
+			avatarIconColor: colors.darkGrey,
+		}
 	},
 };

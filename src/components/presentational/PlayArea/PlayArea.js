@@ -11,8 +11,11 @@ const StyledPlayArea = styled.div`
 	position: relative;
 	justify-content: center;
 	align-items: center;
-	background: ${({ theme, type }) =>
-		_.get(theme, [type, "background"], "white")};
+	background: ${({ theme, type }) => _.get(theme, [type, "background"])};
+	background-image: url(${props =>  _.get(props.theme, [props.type, "backgroundImage"], "")});
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 
 	@media ${breakpoints.tablet} {
 		padding: 0;
@@ -25,6 +28,7 @@ const StyledPlayAreaScore = styled.span`
 	top: 0;
 	left: 0;
 	padding: 8px;
+	color: ${({ theme, type }) => _.get(theme, [type, "scoreColor"])};
 `;
 
 const StyledPlayAreaScoreLabel = styled.label`
@@ -37,7 +41,7 @@ const StyledPlayAreaScoreValue = styled.span`
 
 const PlayArea = ({ children, type, score }) => (
 	<StyledPlayArea type={type}>
-		<StyledPlayAreaScore>
+		<StyledPlayAreaScore type={type}>
 			<StyledPlayAreaScoreLabel>Score:</StyledPlayAreaScoreLabel>
 			<StyledPlayAreaScoreValue>{score}</StyledPlayAreaScoreValue>
 		</StyledPlayAreaScore>

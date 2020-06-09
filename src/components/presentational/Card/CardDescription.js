@@ -2,12 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 
 import { breakpoints } from "../../../styles";
 import iconMap from "./iconMap";
 
 const StyledCardDescription = styled.div`
 	display: flex;
+	color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
 `;
 
 const StyledCardDescriptionIcon = styled.div`
@@ -35,7 +37,7 @@ const StyledCardDescriptionTitle = styled.h1`
 `;
 
 const CardDescription = ({ title, info, type }) => (
-	<StyledCardDescription>
+	<StyledCardDescription type={type}>
 		<StyledCardDescriptionIcon>
 			<FontAwesomeIcon icon={iconMap[type]} />
 		</StyledCardDescriptionIcon>
