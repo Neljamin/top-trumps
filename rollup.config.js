@@ -8,7 +8,7 @@ import visualizer from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
 export default {
-	input: "./src/components/presentational/Card/Card.js",
+	input: "./src/App.js",
 	output: [
 		{
 			file: pkg.main,
