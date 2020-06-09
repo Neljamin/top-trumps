@@ -20983,7 +20983,7 @@ var defaultTheme = {
   user: {
     background: colors.blue,
     backgroundImage: '',
-    scoreColor: colors.black,
+    scoreColor: colors.blue,
     frontFace: {
       background: colors.white,
       textColor: colors.black,
@@ -23190,7 +23190,7 @@ GameBoardGameOver.propType = {
 };
 
 function _templateObject4$5() {
-  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbox-sizing: border-box;\n\tpadding: 8px;\n"]);
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbox-sizing: border-box;\n\tpadding: 8px;\n\tcolor: ", ";\n\n\t@media ", " {\n\t\tcolor: ", ";\n\t}\n"]);
 
   _templateObject4$5 = function _templateObject4() {
     return data;
@@ -23241,7 +23241,11 @@ var StyledGameBoardStatus = styled.span(_templateObject2$6(), function (props) {
 
   return css(_templateObject3$5(), stateProps.background, stateProps.text);
 });
-var StyledRoundCounter = styled.span(_templateObject4$5());
+var StyledRoundCounter = styled.span(_templateObject4$5(), function (props) {
+  return props.theme.user.scoreColor;
+}, breakpoints.tablet, function (props) {
+  return props.theme.computer.scoreColor;
+});
 
 var GameBoard = function GameBoard(_ref) {
   var children = _ref.children,
