@@ -36,7 +36,7 @@ export default {
 	user: {
 		background: colors.blue,
 		backgroundImage: '',
-		scoreColor: colors.black,
+		scoreColor: colors.blue,
 		frontFace: {
 			background: colors.white,
 			textColor: colors.black,

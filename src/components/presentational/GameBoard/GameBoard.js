@@ -56,6 +56,11 @@ const StyledRoundCounter = styled.span`
 	right: 0;
 	box-sizing: border-box;
 	padding: 8px;
+	color: ${props => props.theme.user.scoreColor};
+
+	@media ${breakpoints.tablet} {
+		color: ${props => props.theme.computer.scoreColor};
+	}
 `;
 
 const GameBoard = ({
