@@ -1,6 +1,6 @@
 {
   "name": "top-trumps",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": false,
   "homepage": "https://neljamin.github.io/top-trumps/",
   "dependencies": {
