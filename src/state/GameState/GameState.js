@@ -1,14 +1,13 @@
-import React, { useEffect, useReducer, createContext } from "react";
+import React, { useReducer, createContext } from "react";
 
-import reducer from "./reducer";
+import reducer, { setCards } from "./reducer";
 import initialState from "./initialState";
 import actions from "./actions";
-import { starWarsDataService } from "../../services";
 
 export const GameStateContext = createContext({});
 
-export function GameStateProvider({ children }) {
-	const [state, dispatch] = useReducer(reducer, initialState);
+export function GameStateProvider({ children, cards }) {
+	const [state, dispatch] = useReducer(reducer, setCards(initialState, cards));
 
 	const value = {
 		loading: state.loading,
@@ -26,14 +25,6 @@ export function GameStateProvider({ children }) {
 		hideCards: () => dispatch({ type: actions.HIDE_CARDS }),
 		newGame: (value) => dispatch({ type: actions.NEW_GAME, value }),
 	};
-
-	useEffect(() => {
-		(async function loadCards() {
-			const cards = await starWarsDataService.getStarShips();
-			value.setCards(cards);
-		})();
-		// eslint-disable-next-line
-	}, []);
 
 	return (
 		<GameStateContext.Provider value={value}>

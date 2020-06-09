@@ -4,7 +4,7 @@ import actions from "./actions";
 import { shuffleCards, splitCardsInHalf, getCardsForRounds } from "./helpers";
 import config from "../../environment/config";
 
-const setCards = (state, cards) => {
+export const setCards = (state, cards) => {
 	const { user, computer } = state;
 	const cardsForGame = getCardsForRounds(cards, config.numberOfRounds);
 	const shuffledCards = shuffleCards(cardsForGame);
