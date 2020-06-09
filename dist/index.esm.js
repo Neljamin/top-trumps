@@ -1,74 +1,10 @@
-import React, { useRef, createElement, useDebugValue, useContext } from 'react';
-
-function _taggedTemplateLiteral(strings, raw) {
-  if (!raw) {
-    raw = strings.slice(0);
-  }
-
-  return Object.freeze(Object.defineProperties(strings, {
-    raw: {
-      value: Object.freeze(raw)
-    }
-  }));
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
+import React, { useContext, useMemo, useRef, createElement, useDebugValue, createContext, useReducer, useEffect } from 'react';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+function unwrapExports (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
 
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
@@ -309,851 +245,6 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = reactIs_production_min;
 } else {
   module.exports = reactIs_development;
-}
-});
-
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
-
-var ReactPropTypesSecret_1 = ReactPropTypesSecret;
-
-var printWarning = function() {};
-
-if (process.env.NODE_ENV !== 'production') {
-  var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
-  var loggedTypeFailures = {};
-  var has = Function.call.bind(Object.prototype.hasOwnProperty);
-
-  printWarning = function(text) {
-    var message = 'Warning: ' + text;
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-}
-
-/**
- * Assert that the values match with the type specs.
- * Error messages are memorized and will only be shown once.
- *
- * @param {object} typeSpecs Map of name to a ReactPropType
- * @param {object} values Runtime values that need to be type-checked
- * @param {string} location e.g. "prop", "context", "child context"
- * @param {string} componentName Name of the component for error messages.
- * @param {?Function} getStack Returns the component stack.
- * @private
- */
-function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-  if (process.env.NODE_ENV !== 'production') {
-    for (var typeSpecName in typeSpecs) {
-      if (has(typeSpecs, typeSpecName)) {
-        var error;
-        // Prop type validation may throw. In case they do, we don't want to
-        // fail the render phase where it didn't fail before. So we log it.
-        // After these have been cleaned up, we'll let them throw.
-        try {
-          // This is intentionally an invariant that gets caught. It's the same
-          // behavior as without this statement except with a better message.
-          if (typeof typeSpecs[typeSpecName] !== 'function') {
-            var err = Error(
-              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
-              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
-            );
-            err.name = 'Invariant Violation';
-            throw err;
-          }
-          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret$1);
-        } catch (ex) {
-          error = ex;
-        }
-        if (error && !(error instanceof Error)) {
-          printWarning(
-            (componentName || 'React class') + ': type specification of ' +
-            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
-            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
-            'You may have forgotten to pass an argument to the type checker ' +
-            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
-            'shape all require an argument).'
-          );
-        }
-        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-          // Only monitor this failure once because there tends to be a lot of the
-          // same error.
-          loggedTypeFailures[error.message] = true;
-
-          var stack = getStack ? getStack() : '';
-
-          printWarning(
-            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
-          );
-        }
-      }
-    }
-  }
-}
-
-/**
- * Resets warning cache when testing.
- *
- * @private
- */
-checkPropTypes.resetWarningCache = function() {
-  if (process.env.NODE_ENV !== 'production') {
-    loggedTypeFailures = {};
-  }
-};
-
-var checkPropTypes_1 = checkPropTypes;
-
-var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
-var printWarning$1 = function() {};
-
-if (process.env.NODE_ENV !== 'production') {
-  printWarning$1 = function(text) {
-    var message = 'Warning: ' + text;
-    if (typeof console !== 'undefined') {
-      console.error(message);
-    }
-    try {
-      // --- Welcome to debugging React ---
-      // This error was thrown as a convenience so that you can use this stack
-      // to find the callsite that caused this warning to fire.
-      throw new Error(message);
-    } catch (x) {}
-  };
-}
-
-function emptyFunctionThatReturnsNull() {
-  return null;
-}
-
-var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
-  /* global Symbol */
-  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
-  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
-
-  /**
-   * Returns the iterator method function contained on the iterable object.
-   *
-   * Be sure to invoke the function with the iterable as context:
-   *
-   *     var iteratorFn = getIteratorFn(myIterable);
-   *     if (iteratorFn) {
-   *       var iterator = iteratorFn.call(myIterable);
-   *       ...
-   *     }
-   *
-   * @param {?object} maybeIterable
-   * @return {?function}
-   */
-  function getIteratorFn(maybeIterable) {
-    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
-    if (typeof iteratorFn === 'function') {
-      return iteratorFn;
-    }
-  }
-
-  /**
-   * Collection of methods that allow declaration and validation of props that are
-   * supplied to React components. Example usage:
-   *
-   *   var Props = require('ReactPropTypes');
-   *   var MyArticle = React.createClass({
-   *     propTypes: {
-   *       // An optional string prop named "description".
-   *       description: Props.string,
-   *
-   *       // A required enum prop named "category".
-   *       category: Props.oneOf(['News','Photos']).isRequired,
-   *
-   *       // A prop named "dialog" that requires an instance of Dialog.
-   *       dialog: Props.instanceOf(Dialog).isRequired
-   *     },
-   *     render: function() { ... }
-   *   });
-   *
-   * A more formal specification of how these methods are used:
-   *
-   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
-   *   decl := ReactPropTypes.{type}(.isRequired)?
-   *
-   * Each and every declaration produces a function with the same signature. This
-   * allows the creation of custom validation functions. For example:
-   *
-   *  var MyLink = React.createClass({
-   *    propTypes: {
-   *      // An optional string or URI prop named "href".
-   *      href: function(props, propName, componentName) {
-   *        var propValue = props[propName];
-   *        if (propValue != null && typeof propValue !== 'string' &&
-   *            !(propValue instanceof URI)) {
-   *          return new Error(
-   *            'Expected a string or an URI for ' + propName + ' in ' +
-   *            componentName
-   *          );
-   *        }
-   *      }
-   *    },
-   *    render: function() {...}
-   *  });
-   *
-   * @internal
-   */
-
-  var ANONYMOUS = '<<anonymous>>';
-
-  // Important!
-  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
-  var ReactPropTypes = {
-    array: createPrimitiveTypeChecker('array'),
-    bool: createPrimitiveTypeChecker('boolean'),
-    func: createPrimitiveTypeChecker('function'),
-    number: createPrimitiveTypeChecker('number'),
-    object: createPrimitiveTypeChecker('object'),
-    string: createPrimitiveTypeChecker('string'),
-    symbol: createPrimitiveTypeChecker('symbol'),
-
-    any: createAnyTypeChecker(),
-    arrayOf: createArrayOfTypeChecker,
-    element: createElementTypeChecker(),
-    elementType: createElementTypeTypeChecker(),
-    instanceOf: createInstanceTypeChecker,
-    node: createNodeChecker(),
-    objectOf: createObjectOfTypeChecker,
-    oneOf: createEnumTypeChecker,
-    oneOfType: createUnionTypeChecker,
-    shape: createShapeTypeChecker,
-    exact: createStrictShapeTypeChecker,
-  };
-
-  /**
-   * inlined Object.is polyfill to avoid requiring consumers ship their own
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
-   */
-  /*eslint-disable no-self-compare*/
-  function is(x, y) {
-    // SameValue algorithm
-    if (x === y) {
-      // Steps 1-5, 7-10
-      // Steps 6.b-6.e: +0 != -0
-      return x !== 0 || 1 / x === 1 / y;
-    } else {
-      // Step 6.a: NaN == NaN
-      return x !== x && y !== y;
-    }
-  }
-  /*eslint-enable no-self-compare*/
-
-  /**
-   * We use an Error-like object for backward compatibility as people may call
-   * PropTypes directly and inspect their output. However, we don't use real
-   * Errors anymore. We don't inspect their stack anyway, and creating them
-   * is prohibitively expensive if they are created too often, such as what
-   * happens in oneOfType() for any type before the one that matched.
-   */
-  function PropTypeError(message) {
-    this.message = message;
-    this.stack = '';
-  }
-  // Make `instanceof Error` still work for returned errors.
-  PropTypeError.prototype = Error.prototype;
-
-  function createChainableTypeChecker(validate) {
-    if (process.env.NODE_ENV !== 'production') {
-      var manualPropTypeCallCache = {};
-      var manualPropTypeWarningCount = 0;
-    }
-    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-      componentName = componentName || ANONYMOUS;
-      propFullName = propFullName || propName;
-
-      if (secret !== ReactPropTypesSecret_1) {
-        if (throwOnDirectAccess) {
-          // New behavior only for users of `prop-types` package
-          var err = new Error(
-            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-            'Use `PropTypes.checkPropTypes()` to call them. ' +
-            'Read more at http://fb.me/use-check-prop-types'
-          );
-          err.name = 'Invariant Violation';
-          throw err;
-        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
-          // Old behavior for people using React.PropTypes
-          var cacheKey = componentName + ':' + propName;
-          if (
-            !manualPropTypeCallCache[cacheKey] &&
-            // Avoid spamming the console because they are often not actionable except for lib authors
-            manualPropTypeWarningCount < 3
-          ) {
-            printWarning$1(
-              'You are manually calling a React.PropTypes validation ' +
-              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
-              'and will throw in the standalone `prop-types` package. ' +
-              'You may be seeing this warning due to a third-party PropTypes ' +
-              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
-            );
-            manualPropTypeCallCache[cacheKey] = true;
-            manualPropTypeWarningCount++;
-          }
-        }
-      }
-      if (props[propName] == null) {
-        if (isRequired) {
-          if (props[propName] === null) {
-            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
-          }
-          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
-        }
-        return null;
-      } else {
-        return validate(props, propName, componentName, location, propFullName);
-      }
-    }
-
-    var chainedCheckType = checkType.bind(null, false);
-    chainedCheckType.isRequired = checkType.bind(null, true);
-
-    return chainedCheckType;
-  }
-
-  function createPrimitiveTypeChecker(expectedType) {
-    function validate(props, propName, componentName, location, propFullName, secret) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== expectedType) {
-        // `propValue` being instance of, say, date/regexp, pass the 'object'
-        // check, but we can offer a more precise error message here rather than
-        // 'of type `object`'.
-        var preciseType = getPreciseType(propValue);
-
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createAnyTypeChecker() {
-    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
-  }
-
-  function createArrayOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
-      }
-      var propValue = props[propName];
-      if (!Array.isArray(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
-      }
-      for (var i = 0; i < propValue.length; i++) {
-        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret_1);
-        if (error instanceof Error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      if (!isValidElement(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createElementTypeTypeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      if (!reactIs.isValidElementType(propValue)) {
-        var propType = getPropType(propValue);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createInstanceTypeChecker(expectedClass) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!(props[propName] instanceof expectedClass)) {
-        var expectedClassName = expectedClass.name || ANONYMOUS;
-        var actualClassName = getClassName(props[propName]);
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createEnumTypeChecker(expectedValues) {
-    if (!Array.isArray(expectedValues)) {
-      if (process.env.NODE_ENV !== 'production') {
-        if (arguments.length > 1) {
-          printWarning$1(
-            'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
-            'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
-          );
-        } else {
-          printWarning$1('Invalid argument supplied to oneOf, expected an array.');
-        }
-      }
-      return emptyFunctionThatReturnsNull;
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      for (var i = 0; i < expectedValues.length; i++) {
-        if (is(propValue, expectedValues[i])) {
-          return null;
-        }
-      }
-
-      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-        var type = getPreciseType(value);
-        if (type === 'symbol') {
-          return String(value);
-        }
-        return value;
-      });
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createObjectOfTypeChecker(typeChecker) {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (typeof typeChecker !== 'function') {
-        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
-      }
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
-      }
-      for (var key in propValue) {
-        if (has$1(propValue, key)) {
-          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-          if (error instanceof Error) {
-            return error;
-          }
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createUnionTypeChecker(arrayOfTypeCheckers) {
-    if (!Array.isArray(arrayOfTypeCheckers)) {
-      process.env.NODE_ENV !== 'production' ? printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
-      return emptyFunctionThatReturnsNull;
-    }
-
-    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-      var checker = arrayOfTypeCheckers[i];
-      if (typeof checker !== 'function') {
-        printWarning$1(
-          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
-          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
-        );
-        return emptyFunctionThatReturnsNull;
-      }
-    }
-
-    function validate(props, propName, componentName, location, propFullName) {
-      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-        var checker = arrayOfTypeCheckers[i];
-        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret_1) == null) {
-          return null;
-        }
-      }
-
-      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createNodeChecker() {
-    function validate(props, propName, componentName, location, propFullName) {
-      if (!isNode(props[propName])) {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-      for (var key in shapeTypes) {
-        var checker = shapeTypes[key];
-        if (!checker) {
-          continue;
-        }
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-        if (error) {
-          return error;
-        }
-      }
-      return null;
-    }
-    return createChainableTypeChecker(validate);
-  }
-
-  function createStrictShapeTypeChecker(shapeTypes) {
-    function validate(props, propName, componentName, location, propFullName) {
-      var propValue = props[propName];
-      var propType = getPropType(propValue);
-      if (propType !== 'object') {
-        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
-      }
-      // We need to check all keys in case some are required but missing from
-      // props.
-      var allKeys = objectAssign({}, props[propName], shapeTypes);
-      for (var key in allKeys) {
-        var checker = shapeTypes[key];
-        if (!checker) {
-          return new PropTypeError(
-            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
-            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
-            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
-          );
-        }
-        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
-        if (error) {
-          return error;
-        }
-      }
-      return null;
-    }
-
-    return createChainableTypeChecker(validate);
-  }
-
-  function isNode(propValue) {
-    switch (typeof propValue) {
-      case 'number':
-      case 'string':
-      case 'undefined':
-        return true;
-      case 'boolean':
-        return !propValue;
-      case 'object':
-        if (Array.isArray(propValue)) {
-          return propValue.every(isNode);
-        }
-        if (propValue === null || isValidElement(propValue)) {
-          return true;
-        }
-
-        var iteratorFn = getIteratorFn(propValue);
-        if (iteratorFn) {
-          var iterator = iteratorFn.call(propValue);
-          var step;
-          if (iteratorFn !== propValue.entries) {
-            while (!(step = iterator.next()).done) {
-              if (!isNode(step.value)) {
-                return false;
-              }
-            }
-          } else {
-            // Iterator will provide entry [k,v] tuples rather than values.
-            while (!(step = iterator.next()).done) {
-              var entry = step.value;
-              if (entry) {
-                if (!isNode(entry[1])) {
-                  return false;
-                }
-              }
-            }
-          }
-        } else {
-          return false;
-        }
-
-        return true;
-      default:
-        return false;
-    }
-  }
-
-  function isSymbol(propType, propValue) {
-    // Native Symbol.
-    if (propType === 'symbol') {
-      return true;
-    }
-
-    // falsy value can't be a Symbol
-    if (!propValue) {
-      return false;
-    }
-
-    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
-    if (propValue['@@toStringTag'] === 'Symbol') {
-      return true;
-    }
-
-    // Fallback for non-spec compliant Symbols which are polyfilled.
-    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-      return true;
-    }
-
-    return false;
-  }
-
-  // Equivalent of `typeof` but with special handling for array and regexp.
-  function getPropType(propValue) {
-    var propType = typeof propValue;
-    if (Array.isArray(propValue)) {
-      return 'array';
-    }
-    if (propValue instanceof RegExp) {
-      // Old webkits (at least until Android 4.0) return 'function' rather than
-      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
-      // passes PropTypes.object.
-      return 'object';
-    }
-    if (isSymbol(propType, propValue)) {
-      return 'symbol';
-    }
-    return propType;
-  }
-
-  // This handles more types than `getPropType`. Only used for error messages.
-  // See `createPrimitiveTypeChecker`.
-  function getPreciseType(propValue) {
-    if (typeof propValue === 'undefined' || propValue === null) {
-      return '' + propValue;
-    }
-    var propType = getPropType(propValue);
-    if (propType === 'object') {
-      if (propValue instanceof Date) {
-        return 'date';
-      } else if (propValue instanceof RegExp) {
-        return 'regexp';
-      }
-    }
-    return propType;
-  }
-
-  // Returns a string that is postfixed to a warning about an invalid type.
-  // For example, "undefined" or "of type array"
-  function getPostfixForTypeWarning(value) {
-    var type = getPreciseType(value);
-    switch (type) {
-      case 'array':
-      case 'object':
-        return 'an ' + type;
-      case 'boolean':
-      case 'date':
-      case 'regexp':
-        return 'a ' + type;
-      default:
-        return type;
-    }
-  }
-
-  // Returns class name of the object, if any.
-  function getClassName(propValue) {
-    if (!propValue.constructor || !propValue.constructor.name) {
-      return ANONYMOUS;
-    }
-    return propValue.constructor.name;
-  }
-
-  ReactPropTypes.checkPropTypes = checkPropTypes_1;
-  ReactPropTypes.resetWarningCache = checkPropTypes_1.resetWarningCache;
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
-emptyFunctionWithReset.resetWarningCache = emptyFunction;
-
-var factoryWithThrowingShims = function() {
-  function shim(props, propName, componentName, location, propFullName, secret) {
-    if (secret === ReactPropTypesSecret_1) {
-      // It is still safe when called from React.
-      return;
-    }
-    var err = new Error(
-      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
-      'Use PropTypes.checkPropTypes() to call them. ' +
-      'Read more at http://fb.me/use-check-prop-types'
-    );
-    err.name = 'Invariant Violation';
-    throw err;
-  }  shim.isRequired = shim;
-  function getShim() {
-    return shim;
-  }  // Important!
-  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
-  var ReactPropTypes = {
-    array: shim,
-    bool: shim,
-    func: shim,
-    number: shim,
-    object: shim,
-    string: shim,
-    symbol: shim,
-
-    any: shim,
-    arrayOf: getShim,
-    element: shim,
-    elementType: shim,
-    instanceOf: getShim,
-    node: shim,
-    objectOf: getShim,
-    oneOf: getShim,
-    oneOfType: getShim,
-    shape: getShim,
-    exact: getShim,
-
-    checkPropTypes: emptyFunctionWithReset,
-    resetWarningCache: emptyFunction
-  };
-
-  ReactPropTypes.PropTypes = ReactPropTypes;
-
-  return ReactPropTypes;
-};
-
-var propTypes = createCommonjsModule(function (module) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (process.env.NODE_ENV !== 'production') {
-  var ReactIs = reactIs;
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = factoryWithTypeCheckers(ReactIs.isElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = factoryWithThrowingShims();
 }
 });
 
@@ -1897,7 +988,7 @@ function getStatics(component) {
 
 var defineProperty = Object.defineProperty;
 var getOwnPropertyNames = Object.getOwnPropertyNames;
-var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 var getPrototypeOf = Object.getPrototypeOf;
 var objectPrototype = Object.prototype;
@@ -1914,8 +1005,8 @@ function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
 
     var keys = getOwnPropertyNames(sourceComponent);
 
-    if (getOwnPropertySymbols$1) {
-      keys = keys.concat(getOwnPropertySymbols$1(sourceComponent));
+    if (getOwnPropertySymbols) {
+      keys = keys.concat(getOwnPropertySymbols(sourceComponent));
     }
 
     var targetStatics = getStatics(targetComponent);
@@ -3284,6 +2375,47 @@ function joinStrings(a, b) {
 var ThemeContext = React.createContext();
 var ThemeConsumer = ThemeContext.Consumer;
 
+function mergeTheme(theme, outerTheme) {
+  if (!theme) {
+    return throwStyledComponentsError(14);
+  }
+
+  if (isFunction(theme)) {
+    var mergedTheme = theme(outerTheme);
+
+    if (process.env.NODE_ENV !== 'production' && (mergedTheme === null || Array.isArray(mergedTheme) || typeof mergedTheme !== 'object')) {
+      return throwStyledComponentsError(7);
+    }
+
+    return mergedTheme;
+  }
+
+  if (Array.isArray(theme) || typeof theme !== 'object') {
+    return throwStyledComponentsError(8);
+  }
+
+  return outerTheme ? _extends({}, outerTheme, {}, theme) : theme;
+}
+/**
+ * Provide a theme to an entire react component tree via context
+ */
+
+
+function ThemeProvider(props) {
+  var outerTheme = useContext(ThemeContext);
+  var themeContext = useMemo(function () {
+    return mergeTheme(props.theme, outerTheme);
+  }, [props.theme, outerTheme]);
+
+  if (!props.children) {
+    return null;
+  }
+
+  return /*#__PURE__*/React.createElement(ThemeContext.Provider, {
+    value: themeContext
+  }, props.children);
+}
+
 /* global $Call */
 
 var identifiers = {};
@@ -3548,77 +2680,1066 @@ var breakpoints = {
   desktop: "(min-width: ".concat(size.desktop, ")")
 };
 
-var iconMap = {
-  user: "fa-user",
-  computer: "fa-robot"
+var colors = {
+  white: "#ffffff",
+  black: "#000000",
+  darkGrey: "#333333",
+  red: "#FF9AA2",
+  darkRed: "#8a0000",
+  darkOrange: "#FFB7B2",
+  orange: "#FFDAC1",
+  yellow: "#FFFFD1",
+  lightGreen: "#E2F0CB",
+  green: "#B5EAD7",
+  darkGreen: "#546940",
+  blue: "#a5d6f7"
+};
+var defaultTheme = {
+  gameState: {
+    win: {
+      text: colors.darkGreen,
+      background: colors.green
+    },
+    lose: {
+      text: colors.darkRed,
+      background: colors.red
+    },
+    draw: {
+      text: colors.black,
+      background: colors.yellow
+    },
+    unplayed: {
+      text: colors.darkGrey,
+      background: colors.white
+    }
+  },
+  user: {
+    background: colors.blue
+  },
+  computer: {
+    background: colors.orange
+  }
 };
 
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n\tfont-size: 14px;\n\tline-height: 16px;\n\tfont-weight: 600;\n"]);
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+  try {
+    var info = gen[key](arg);
+    var value = info.value;
+  } catch (error) {
+    reject(error);
+    return;
+  }
 
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
+  if (info.done) {
+    resolve(value);
+  } else {
+    Promise.resolve(value).then(_next, _throw);
+  }
 }
 
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n\tpadding: 0 8px;\n\ttext-align: right;\n\tfont-size: 14px;\n"]);
+function _asyncToGenerator(fn) {
+  return function () {
+    var self = this,
+        args = arguments;
+    return new Promise(function (resolve, reject) {
+      var gen = fn.apply(self, args);
 
-  _templateObject3 = function _templateObject3() {
-    return data;
+      function _next(value) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+      }
+
+      function _throw(err) {
+        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+      }
+
+      _next(undefined);
+    });
   };
-
-  return data;
 }
 
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n\theight: 32px;\n\twidth: 32px;\n\tfont-size: 32px;\n\n\t@media ", " {\n\t\theight: 48px;\n\t\twidth: 48px;\n\t\tfont-size: 48px;\n\t}\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
 }
 
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
 }
-var StyledCardDescription = styled.div(_templateObject());
-var StyledCardDescriptionIcon = styled.div(_templateObject2(), breakpoints.tablet);
-var StyledCardDescriptionInfo = styled.div(_templateObject3());
-var StyledCardDescriptionTitle = styled.h1(_templateObject4());
 
-var CardDescription = function CardDescription(_ref) {
-  var title = _ref.title,
-      info = _ref.info,
-      type = _ref.type;
-  return /*#__PURE__*/React.createElement(StyledCardDescription, null, /*#__PURE__*/React.createElement(StyledCardDescriptionIcon, null, /*#__PURE__*/React.createElement("i", {
-    className: "fa ".concat(iconMap[type])
-  })), /*#__PURE__*/React.createElement(StyledCardDescriptionInfo, null, /*#__PURE__*/React.createElement(StyledCardDescriptionTitle, null, title), info.map(function (infoItem, index) {
-    return /*#__PURE__*/React.createElement("span", {
-      key: index
-    }, infoItem);
-  })));
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _taggedTemplateLiteral(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  return Object.freeze(Object.defineProperties(strings, {
+    raw: {
+      value: Object.freeze(raw)
+    }
+  }));
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols$1 = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols$1) {
+			symbols = getOwnPropertySymbols$1(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
 };
 
-CardDescription.propTypes = {
-  title: propTypes.string.isRequired,
-  info: propTypes.arrayOf(propTypes.string),
-  type: propTypes.oneOf(Object.keys(iconMap)).isRequired
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+var ReactPropTypesSecret_1 = ReactPropTypesSecret;
+
+var printWarning = function() {};
+
+if (process.env.NODE_ENV !== 'production') {
+  var ReactPropTypesSecret$1 = ReactPropTypesSecret_1;
+  var loggedTypeFailures = {};
+  var has = Function.call.bind(Object.prototype.hasOwnProperty);
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (process.env.NODE_ENV !== 'production') {
+    for (var typeSpecName in typeSpecs) {
+      if (has(typeSpecs, typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret$1);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          );
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Resets warning cache when testing.
+ *
+ * @private
+ */
+checkPropTypes.resetWarningCache = function() {
+  if (process.env.NODE_ENV !== 'production') {
+    loggedTypeFailures = {};
+  }
 };
-CardDescription.defaultProps = {
-  title: "",
-  info: []
+
+var checkPropTypes_1 = checkPropTypes;
+
+var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
+var printWarning$1 = function() {};
+
+if (process.env.NODE_ENV !== 'production') {
+  printWarning$1 = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+function emptyFunctionThatReturnsNull() {
+  return null;
+}
+
+var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
+  /* global Symbol */
+  var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+  var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
+
+  /**
+   * Returns the iterator method function contained on the iterable object.
+   *
+   * Be sure to invoke the function with the iterable as context:
+   *
+   *     var iteratorFn = getIteratorFn(myIterable);
+   *     if (iteratorFn) {
+   *       var iterator = iteratorFn.call(myIterable);
+   *       ...
+   *     }
+   *
+   * @param {?object} maybeIterable
+   * @return {?function}
+   */
+  function getIteratorFn(maybeIterable) {
+    var iteratorFn = maybeIterable && (ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL]);
+    if (typeof iteratorFn === 'function') {
+      return iteratorFn;
+    }
+  }
+
+  /**
+   * Collection of methods that allow declaration and validation of props that are
+   * supplied to React components. Example usage:
+   *
+   *   var Props = require('ReactPropTypes');
+   *   var MyArticle = React.createClass({
+   *     propTypes: {
+   *       // An optional string prop named "description".
+   *       description: Props.string,
+   *
+   *       // A required enum prop named "category".
+   *       category: Props.oneOf(['News','Photos']).isRequired,
+   *
+   *       // A prop named "dialog" that requires an instance of Dialog.
+   *       dialog: Props.instanceOf(Dialog).isRequired
+   *     },
+   *     render: function() { ... }
+   *   });
+   *
+   * A more formal specification of how these methods are used:
+   *
+   *   type := array|bool|func|object|number|string|oneOf([...])|instanceOf(...)
+   *   decl := ReactPropTypes.{type}(.isRequired)?
+   *
+   * Each and every declaration produces a function with the same signature. This
+   * allows the creation of custom validation functions. For example:
+   *
+   *  var MyLink = React.createClass({
+   *    propTypes: {
+   *      // An optional string or URI prop named "href".
+   *      href: function(props, propName, componentName) {
+   *        var propValue = props[propName];
+   *        if (propValue != null && typeof propValue !== 'string' &&
+   *            !(propValue instanceof URI)) {
+   *          return new Error(
+   *            'Expected a string or an URI for ' + propName + ' in ' +
+   *            componentName
+   *          );
+   *        }
+   *      }
+   *    },
+   *    render: function() {...}
+   *  });
+   *
+   * @internal
+   */
+
+  var ANONYMOUS = '<<anonymous>>';
+
+  // Important!
+  // Keep this list in sync with production version in `./factoryWithThrowingShims.js`.
+  var ReactPropTypes = {
+    array: createPrimitiveTypeChecker('array'),
+    bool: createPrimitiveTypeChecker('boolean'),
+    func: createPrimitiveTypeChecker('function'),
+    number: createPrimitiveTypeChecker('number'),
+    object: createPrimitiveTypeChecker('object'),
+    string: createPrimitiveTypeChecker('string'),
+    symbol: createPrimitiveTypeChecker('symbol'),
+
+    any: createAnyTypeChecker(),
+    arrayOf: createArrayOfTypeChecker,
+    element: createElementTypeChecker(),
+    elementType: createElementTypeTypeChecker(),
+    instanceOf: createInstanceTypeChecker,
+    node: createNodeChecker(),
+    objectOf: createObjectOfTypeChecker,
+    oneOf: createEnumTypeChecker,
+    oneOfType: createUnionTypeChecker,
+    shape: createShapeTypeChecker,
+    exact: createStrictShapeTypeChecker,
+  };
+
+  /**
+   * inlined Object.is polyfill to avoid requiring consumers ship their own
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+   */
+  /*eslint-disable no-self-compare*/
+  function is(x, y) {
+    // SameValue algorithm
+    if (x === y) {
+      // Steps 1-5, 7-10
+      // Steps 6.b-6.e: +0 != -0
+      return x !== 0 || 1 / x === 1 / y;
+    } else {
+      // Step 6.a: NaN == NaN
+      return x !== x && y !== y;
+    }
+  }
+  /*eslint-enable no-self-compare*/
+
+  /**
+   * We use an Error-like object for backward compatibility as people may call
+   * PropTypes directly and inspect their output. However, we don't use real
+   * Errors anymore. We don't inspect their stack anyway, and creating them
+   * is prohibitively expensive if they are created too often, such as what
+   * happens in oneOfType() for any type before the one that matched.
+   */
+  function PropTypeError(message) {
+    this.message = message;
+    this.stack = '';
+  }
+  // Make `instanceof Error` still work for returned errors.
+  PropTypeError.prototype = Error.prototype;
+
+  function createChainableTypeChecker(validate) {
+    if (process.env.NODE_ENV !== 'production') {
+      var manualPropTypeCallCache = {};
+      var manualPropTypeWarningCount = 0;
+    }
+    function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+      componentName = componentName || ANONYMOUS;
+      propFullName = propFullName || propName;
+
+      if (secret !== ReactPropTypesSecret_1) {
+        if (throwOnDirectAccess) {
+          // New behavior only for users of `prop-types` package
+          var err = new Error(
+            'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+            'Use `PropTypes.checkPropTypes()` to call them. ' +
+            'Read more at http://fb.me/use-check-prop-types'
+          );
+          err.name = 'Invariant Violation';
+          throw err;
+        } else if (process.env.NODE_ENV !== 'production' && typeof console !== 'undefined') {
+          // Old behavior for people using React.PropTypes
+          var cacheKey = componentName + ':' + propName;
+          if (
+            !manualPropTypeCallCache[cacheKey] &&
+            // Avoid spamming the console because they are often not actionable except for lib authors
+            manualPropTypeWarningCount < 3
+          ) {
+            printWarning$1(
+              'You are manually calling a React.PropTypes validation ' +
+              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
+              'and will throw in the standalone `prop-types` package. ' +
+              'You may be seeing this warning due to a third-party PropTypes ' +
+              'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
+            );
+            manualPropTypeCallCache[cacheKey] = true;
+            manualPropTypeWarningCount++;
+          }
+        }
+      }
+      if (props[propName] == null) {
+        if (isRequired) {
+          if (props[propName] === null) {
+            return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required ' + ('in `' + componentName + '`, but its value is `null`.'));
+          }
+          return new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in ' + ('`' + componentName + '`, but its value is `undefined`.'));
+        }
+        return null;
+      } else {
+        return validate(props, propName, componentName, location, propFullName);
+      }
+    }
+
+    var chainedCheckType = checkType.bind(null, false);
+    chainedCheckType.isRequired = checkType.bind(null, true);
+
+    return chainedCheckType;
+  }
+
+  function createPrimitiveTypeChecker(expectedType) {
+    function validate(props, propName, componentName, location, propFullName, secret) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== expectedType) {
+        // `propValue` being instance of, say, date/regexp, pass the 'object'
+        // check, but we can offer a more precise error message here rather than
+        // 'of type `object`'.
+        var preciseType = getPreciseType(propValue);
+
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') + ('`' + expectedType + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createAnyTypeChecker() {
+    return createChainableTypeChecker(emptyFunctionThatReturnsNull);
+  }
+
+  function createArrayOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
+      }
+      var propValue = props[propName];
+      if (!Array.isArray(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an array.'));
+      }
+      for (var i = 0; i < propValue.length; i++) {
+        var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret_1);
+        if (error instanceof Error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!isValidElement(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createElementTypeTypeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      if (!reactIs.isValidElementType(propValue)) {
+        var propType = getPropType(propValue);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createInstanceTypeChecker(expectedClass) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!(props[propName] instanceof expectedClass)) {
+        var expectedClassName = expectedClass.name || ANONYMOUS;
+        var actualClassName = getClassName(props[propName]);
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') + ('instance of `' + expectedClassName + '`.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createEnumTypeChecker(expectedValues) {
+    if (!Array.isArray(expectedValues)) {
+      if (process.env.NODE_ENV !== 'production') {
+        if (arguments.length > 1) {
+          printWarning$1(
+            'Invalid arguments supplied to oneOf, expected an array, got ' + arguments.length + ' arguments. ' +
+            'A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
+          );
+        } else {
+          printWarning$1('Invalid argument supplied to oneOf, expected an array.');
+        }
+      }
+      return emptyFunctionThatReturnsNull;
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      for (var i = 0; i < expectedValues.length; i++) {
+        if (is(propValue, expectedValues[i])) {
+          return null;
+        }
+      }
+
+      var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
+        var type = getPreciseType(value);
+        if (type === 'symbol') {
+          return String(value);
+        }
+        return value;
+      });
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of value `' + String(propValue) + '` ' + ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createObjectOfTypeChecker(typeChecker) {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (typeof typeChecker !== 'function') {
+        return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
+      }
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type ' + ('`' + propType + '` supplied to `' + componentName + '`, expected an object.'));
+      }
+      for (var key in propValue) {
+        if (has$1(propValue, key)) {
+          var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
+          if (error instanceof Error) {
+            return error;
+          }
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createUnionTypeChecker(arrayOfTypeCheckers) {
+    if (!Array.isArray(arrayOfTypeCheckers)) {
+      process.env.NODE_ENV !== 'production' ? printWarning$1('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0;
+      return emptyFunctionThatReturnsNull;
+    }
+
+    for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+      var checker = arrayOfTypeCheckers[i];
+      if (typeof checker !== 'function') {
+        printWarning$1(
+          'Invalid argument supplied to oneOfType. Expected an array of check functions, but ' +
+          'received ' + getPostfixForTypeWarning(checker) + ' at index ' + i + '.'
+        );
+        return emptyFunctionThatReturnsNull;
+      }
+    }
+
+    function validate(props, propName, componentName, location, propFullName) {
+      for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
+        var checker = arrayOfTypeCheckers[i];
+        if (checker(props, propName, componentName, location, propFullName, ReactPropTypesSecret_1) == null) {
+          return null;
+        }
+      }
+
+      return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.'));
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createNodeChecker() {
+    function validate(props, propName, componentName, location, propFullName) {
+      if (!isNode(props[propName])) {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`, expected a ReactNode.'));
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      for (var key in shapeTypes) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          continue;
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+    return createChainableTypeChecker(validate);
+  }
+
+  function createStrictShapeTypeChecker(shapeTypes) {
+    function validate(props, propName, componentName, location, propFullName) {
+      var propValue = props[propName];
+      var propType = getPropType(propValue);
+      if (propType !== 'object') {
+        return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` ' + ('supplied to `' + componentName + '`, expected `object`.'));
+      }
+      // We need to check all keys in case some are required but missing from
+      // props.
+      var allKeys = objectAssign({}, props[propName], shapeTypes);
+      for (var key in allKeys) {
+        var checker = shapeTypes[key];
+        if (!checker) {
+          return new PropTypeError(
+            'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
+            '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
+            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+          );
+        }
+        var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
+        if (error) {
+          return error;
+        }
+      }
+      return null;
+    }
+
+    return createChainableTypeChecker(validate);
+  }
+
+  function isNode(propValue) {
+    switch (typeof propValue) {
+      case 'number':
+      case 'string':
+      case 'undefined':
+        return true;
+      case 'boolean':
+        return !propValue;
+      case 'object':
+        if (Array.isArray(propValue)) {
+          return propValue.every(isNode);
+        }
+        if (propValue === null || isValidElement(propValue)) {
+          return true;
+        }
+
+        var iteratorFn = getIteratorFn(propValue);
+        if (iteratorFn) {
+          var iterator = iteratorFn.call(propValue);
+          var step;
+          if (iteratorFn !== propValue.entries) {
+            while (!(step = iterator.next()).done) {
+              if (!isNode(step.value)) {
+                return false;
+              }
+            }
+          } else {
+            // Iterator will provide entry [k,v] tuples rather than values.
+            while (!(step = iterator.next()).done) {
+              var entry = step.value;
+              if (entry) {
+                if (!isNode(entry[1])) {
+                  return false;
+                }
+              }
+            }
+          }
+        } else {
+          return false;
+        }
+
+        return true;
+      default:
+        return false;
+    }
+  }
+
+  function isSymbol(propType, propValue) {
+    // Native Symbol.
+    if (propType === 'symbol') {
+      return true;
+    }
+
+    // falsy value can't be a Symbol
+    if (!propValue) {
+      return false;
+    }
+
+    // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
+    if (propValue['@@toStringTag'] === 'Symbol') {
+      return true;
+    }
+
+    // Fallback for non-spec compliant Symbols which are polyfilled.
+    if (typeof Symbol === 'function' && propValue instanceof Symbol) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Equivalent of `typeof` but with special handling for array and regexp.
+  function getPropType(propValue) {
+    var propType = typeof propValue;
+    if (Array.isArray(propValue)) {
+      return 'array';
+    }
+    if (propValue instanceof RegExp) {
+      // Old webkits (at least until Android 4.0) return 'function' rather than
+      // 'object' for typeof a RegExp. We'll normalize this here so that /bla/
+      // passes PropTypes.object.
+      return 'object';
+    }
+    if (isSymbol(propType, propValue)) {
+      return 'symbol';
+    }
+    return propType;
+  }
+
+  // This handles more types than `getPropType`. Only used for error messages.
+  // See `createPrimitiveTypeChecker`.
+  function getPreciseType(propValue) {
+    if (typeof propValue === 'undefined' || propValue === null) {
+      return '' + propValue;
+    }
+    var propType = getPropType(propValue);
+    if (propType === 'object') {
+      if (propValue instanceof Date) {
+        return 'date';
+      } else if (propValue instanceof RegExp) {
+        return 'regexp';
+      }
+    }
+    return propType;
+  }
+
+  // Returns a string that is postfixed to a warning about an invalid type.
+  // For example, "undefined" or "of type array"
+  function getPostfixForTypeWarning(value) {
+    var type = getPreciseType(value);
+    switch (type) {
+      case 'array':
+      case 'object':
+        return 'an ' + type;
+      case 'boolean':
+      case 'date':
+      case 'regexp':
+        return 'a ' + type;
+      default:
+        return type;
+    }
+  }
+
+  // Returns class name of the object, if any.
+  function getClassName(propValue) {
+    if (!propValue.constructor || !propValue.constructor.name) {
+      return ANONYMOUS;
+    }
+    return propValue.constructor.name;
+  }
+
+  ReactPropTypes.checkPropTypes = checkPropTypes_1;
+  ReactPropTypes.resetWarningCache = checkPropTypes_1.resetWarningCache;
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
 };
+
+function emptyFunction() {}
+function emptyFunctionWithReset() {}
+emptyFunctionWithReset.resetWarningCache = emptyFunction;
+
+var factoryWithThrowingShims = function() {
+  function shim(props, propName, componentName, location, propFullName, secret) {
+    if (secret === ReactPropTypesSecret_1) {
+      // It is still safe when called from React.
+      return;
+    }
+    var err = new Error(
+      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +
+      'Use PropTypes.checkPropTypes() to call them. ' +
+      'Read more at http://fb.me/use-check-prop-types'
+    );
+    err.name = 'Invariant Violation';
+    throw err;
+  }  shim.isRequired = shim;
+  function getShim() {
+    return shim;
+  }  // Important!
+  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.
+  var ReactPropTypes = {
+    array: shim,
+    bool: shim,
+    func: shim,
+    number: shim,
+    object: shim,
+    string: shim,
+    symbol: shim,
+
+    any: shim,
+    arrayOf: getShim,
+    element: shim,
+    elementType: shim,
+    instanceOf: getShim,
+    node: shim,
+    objectOf: getShim,
+    oneOf: getShim,
+    oneOfType: getShim,
+    shape: getShim,
+    exact: getShim,
+
+    checkPropTypes: emptyFunctionWithReset,
+    resetWarningCache: emptyFunction
+  };
+
+  ReactPropTypes.PropTypes = ReactPropTypes;
+
+  return ReactPropTypes;
+};
+
+var propTypes = createCommonjsModule(function (module) {
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var ReactIs = reactIs;
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = factoryWithTypeCheckers(ReactIs.isElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = factoryWithThrowingShims();
+}
+});
 
 var lodash = createCommonjsModule(function (module, exports) {
 (function() {
@@ -20713,6 +20834,141 @@ var lodash = createCommonjsModule(function (module, exports) {
 }.call(commonjsGlobal));
 });
 
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n\tpadding: 0 8px;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n\tfont-weight: 700;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tleft: 0;\n\tpadding: 8px;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\theight: 100%;\n\tposition: relative;\n\tjustify-content: center;\n\talign-items: center;\n\tbackground: ", ";\n\n\t@media ", " {\n\t\tpadding: 0;\n\t\talign-items: center;\n\t}\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledPlayArea = styled.div(_templateObject(), function (_ref) {
+  var theme = _ref.theme,
+      type = _ref.type;
+  return lodash.get(theme, [type, "background"], "white");
+}, breakpoints.tablet);
+var StyledPlayAreaScore = styled.span(_templateObject2());
+var StyledPlayAreaScoreLabel = styled.label(_templateObject3());
+var StyledPlayAreaScoreValue = styled.span(_templateObject4());
+
+var PlayArea = function PlayArea(_ref2) {
+  var children = _ref2.children,
+      type = _ref2.type,
+      score = _ref2.score;
+  return /*#__PURE__*/React.createElement(StyledPlayArea, {
+    type: type
+  }, /*#__PURE__*/React.createElement(StyledPlayAreaScore, null, /*#__PURE__*/React.createElement(StyledPlayAreaScoreLabel, null, "Score:"), /*#__PURE__*/React.createElement(StyledPlayAreaScoreValue, null, score)), children);
+};
+
+PlayArea.propTypes = {
+  type: propTypes.string.isRequired,
+  children: propTypes.node,
+  score: propTypes.number
+};
+
+var iconMap = {
+  user: "fa-user",
+  computer: "fa-robot"
+};
+
+function _templateObject4$1() {
+  var data = _taggedTemplateLiteral(["\n\tfont-size: 14px;\n\tline-height: 16px;\n\tfont-weight: 600;\n"]);
+
+  _templateObject4$1 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$1() {
+  var data = _taggedTemplateLiteral(["\n\tpadding: 0 8px;\n\ttext-align: right;\n\tfont-size: 14px;\n"]);
+
+  _templateObject3$1 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$1() {
+  var data = _taggedTemplateLiteral(["\n\theight: 32px;\n\twidth: 32px;\n\tfont-size: 32px;\n\n\t@media ", " {\n\t\theight: 48px;\n\t\twidth: 48px;\n\t\tfont-size: 48px;\n\t}\n"]);
+
+  _templateObject2$1 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var StyledCardDescription = styled.div(_templateObject$1());
+var StyledCardDescriptionIcon = styled.div(_templateObject2$1(), breakpoints.tablet);
+var StyledCardDescriptionInfo = styled.div(_templateObject3$1());
+var StyledCardDescriptionTitle = styled.h1(_templateObject4$1());
+
+var CardDescription = function CardDescription(_ref) {
+  var title = _ref.title,
+      info = _ref.info,
+      type = _ref.type;
+  return /*#__PURE__*/React.createElement(StyledCardDescription, null, /*#__PURE__*/React.createElement(StyledCardDescriptionIcon, null, /*#__PURE__*/React.createElement("i", {
+    className: "fa ".concat(iconMap[type])
+  })), /*#__PURE__*/React.createElement(StyledCardDescriptionInfo, null, /*#__PURE__*/React.createElement(StyledCardDescriptionTitle, null, title), info.map(function (infoItem, index) {
+    return /*#__PURE__*/React.createElement("span", {
+      key: index
+    }, infoItem);
+  })));
+};
+
+CardDescription.propTypes = {
+  title: propTypes.string.isRequired,
+  info: propTypes.arrayOf(propTypes.string),
+  type: propTypes.oneOf(Object.keys(iconMap)).isRequired
+};
+CardDescription.defaultProps = {
+  title: "",
+  info: []
+};
+
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n\twidth: auto;\n\tpadding-right: 4px;\n"]);
 
@@ -20723,52 +20979,52 @@ function _templateObject5() {
   return data;
 }
 
-function _templateObject4$1() {
+function _templateObject4$2() {
   var data = _taggedTemplateLiteral(["\n\tpadding-left: 4px;\n"]);
 
-  _templateObject4$1 = function _templateObject4() {
+  _templateObject4$2 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$1() {
+function _templateObject3$2() {
   var data = _taggedTemplateLiteral(["\n\t\t\tbackground-color: ", ";\n\t\t\tcolor: ", ";\n\n\t\t\t&:disabled {\n\t\t\t\tbackground-color: ", ";\n\t\t\t\tcolor: ", ";\n\t\t\t}\n\t\t"]);
 
-  _templateObject3$1 = function _templateObject3() {
+  _templateObject3$2 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$1() {
+function _templateObject2$2() {
   var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\twidth: 100%;\n\tpadding: 4px 0;\n\tmargin-bottom: 2px;\n\tjustify-content: space-between;\n\tborder: 1px #ccc solid;\n\tbackground-color: white;\n\tcolor: black;\n\ttext-align: left;\n\tcursor: pointer;\n\n\t&:hover {\n\t\tbackground-color: #ddd;\n\t}\n\n\t&:disabled {\n\t\tbackground-color: white;\n\t\tcolor: black;\n\t\tcursor: auto;\n\t}\n\n\t", ";\n"]);
 
-  _templateObject2$1 = function _templateObject2() {
+  _templateObject2$2 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$1() {
+function _templateObject$2() {
   var data = _taggedTemplateLiteral(["\n\tpadding: 16px 0;\n"]);
 
-  _templateObject$1 = function _templateObject() {
+  _templateObject$2 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledCardCategories = styled.div(_templateObject$1());
-var StyledCardCategory = styled.button(_templateObject2$1(), function (props) {
+var StyledCardCategories = styled.div(_templateObject$2());
+var StyledCardCategory = styled.button(_templateObject2$2(), function (props) {
   var stateProps = lodash.get(props, ["theme", "gameState", props.state], {});
 
-  return css(_templateObject3$1(), stateProps.background, stateProps.text, stateProps.background, stateProps.text);
+  return css(_templateObject3$2(), stateProps.background, stateProps.text, stateProps.background, stateProps.text);
 });
-var StyledCardCategoryLabel = styled.div(_templateObject4$1());
+var StyledCardCategoryLabel = styled.div(_templateObject4$2());
 var StyledCardCategoryValue = styled.div(_templateObject5());
 
 var CardCategories = function CardCategories(_ref) {
@@ -20811,27 +21067,27 @@ CardCategories.defaultProps = {
   selectedCategory: ""
 };
 
-function _templateObject2$2() {
+function _templateObject2$3() {
   var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\theight: 128px;\n\twidth: 128px;\n\talign-items: center;\n\tjustify-content: center;\n\tfont-size: 64px;\n\tbackground-color: #777;\n\tcolor: white;\n\tborder-radius: 50%;\n"]);
 
-  _templateObject2$2 = function _templateObject2() {
+  _templateObject2$3 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$2() {
+function _templateObject$3() {
   var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\theight: 100%;\n\twidth: 100%;\n\talign-items: center;\n\tjustify-content: center;\n\tborder: 1px solid #ccc;\n\tborder-radius: 10px;\n"]);
 
-  _templateObject$2 = function _templateObject() {
+  _templateObject$3 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledCardBackFace = styled.div(_templateObject$2());
-var StyledCardBackFaceIcon = styled.div(_templateObject2$2());
+var StyledCardBackFace = styled.div(_templateObject$3());
+var StyledCardBackFaceIcon = styled.div(_templateObject2$3());
 
 var CardBackFace = function CardBackFace(_ref) {
   var type = _ref.type;
@@ -20844,51 +21100,51 @@ CardBackFace.propTypes = {
   type: propTypes.oneOf(Object.keys(iconMap)).isRequired
 };
 
-function _templateObject4$2() {
+function _templateObject4$3() {
   var data = _taggedTemplateLiteral(["\n\ttransform: rotateY(180deg);\n"]);
 
-  _templateObject4$2 = function _templateObject4() {
+  _templateObject4$3 = function _templateObject4() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject3$2() {
+function _templateObject3$3() {
   var data = _taggedTemplateLiteral([""]);
 
-  _templateObject3$2 = function _templateObject3() {
+  _templateObject3$3 = function _templateObject3() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject2$3() {
+function _templateObject2$4() {
   var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\tleft: 0;\n\ttop: 0;\n\tright: 0;\n\tbottom: 0;\n\tdisplay: flex;\n\tbox-sizing: border-box;\n\tpadding: 16px;\n\theight: 100%;\n\twidth: 100%;\n\tflex-direction: column;\n\tbackface-visibility: hidden;\n\tbackground-color: white;\n\tborder-radius: 20px;\n\tbox-shadow: 8px 5px 0 rgba(0, 0, 0, 0.3), 11px 10px 0 rgba(0, 0, 0, 0.22);\n"]);
 
-  _templateObject2$3 = function _templateObject2() {
+  _templateObject2$4 = function _templateObject2() {
     return data;
   };
 
   return data;
 }
 
-function _templateObject$3() {
+function _templateObject$4() {
   var data = _taggedTemplateLiteral(["\n\tposition: relative;\n\tmin-height: 200px;\n\twidth: 100%;\n\tmax-width: 400px;\n\tmargin: 0 16px;\n\ttransform-style: preserve-3d;\n\ttransition: transform 0.6s;\n\ttransform: rotateY(", ");\n\n\t@media ", " {\n\t\tmin-height: 400px;\n\t\tmax-width: 270px;\n\t}\n"]);
 
-  _templateObject$3 = function _templateObject() {
+  _templateObject$4 = function _templateObject() {
     return data;
   };
 
   return data;
 }
-var StyledCard = styled.div(_templateObject$3(), function (props) {
+var StyledCard = styled.div(_templateObject$4(), function (props) {
   return props.show ? "0deg" : "180deg";
 }, breakpoints.tablet);
-var StyledCardFace = styled.div(_templateObject2$3());
-var StyledCardFrontface = styled(StyledCardFace)(_templateObject3$2());
-var StyledCardBackface = styled(StyledCardFace)(_templateObject4$2());
+var StyledCardFace = styled.div(_templateObject2$4());
+var StyledCardFrontface = styled(StyledCardFace)(_templateObject3$3());
+var StyledCardBackface = styled(StyledCardFace)(_templateObject4$3());
 
 var Card = function Card(_ref) {
   var type = _ref.type,
@@ -20939,4 +21195,838 @@ Card.defaultProps = {
   }
 };
 
-export default Card;
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n\tmargin: 16px 0;\n\tpadding: 8px;\n\tborder: none;\n\tborder-radius: 3px;\n\tbackground-color: white;\n\tcolor: #777;\n\tcursor: pointer;\n\tbox-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3), 5px 4px 0 rgba(0, 0, 0, 0.22);\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tbottom: 0;\n\theight: 64px;\n\twidth: 64px;\n\tfont-size: 64px;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5$1() {
+  var data = _taggedTemplateLiteral(["\n\tfont-size: 16px;\n\tline-height: 16px;\n"]);
+
+  _templateObject5$1 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4$4() {
+  var data = _taggedTemplateLiteral(["\n\tfont-size: 32px;\n\tline-height: 48px;\n"]);
+
+  _templateObject4$4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$4() {
+  var data = _taggedTemplateLiteral(["\n\tposition: relative;\n\tdisplay: flex;\n\theight: 400px;\n\twidth: 320px;\n\tflex-direction: column;\n\talign-items: center;\n\tjustify-content: center;\n\ttext-align: center;\n"]);
+
+  _templateObject3$4 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$5() {
+  var data = _taggedTemplateLiteral(["\n\t\t\tbackground-color: ", ";\n\t\t\tcolor: ", ";\n\t\t"]);
+
+  _templateObject2$5 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\tdisplay: flex;\n\tleft: 0;\n\ttop: 0;\n\theight: 100%;\n\twidth: 100%;\n\talign-items: center;\n\tjustify-content: center;\n\ttransition: transform 1.2s, background-color 1.2s;\n\ttransform: translateY(", ");\n\n\t", ";\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var MESSAGES = {
+  win: {
+    title: "You Won!",
+    subtitle: "You sure showed the computer who's boss."
+  },
+  lose: {
+    title: "You Lost!",
+    subtitle: "Better luck next time."
+  },
+  draw: {
+    title: "You Drew!",
+    subtitle: "Close one!"
+  }
+};
+var ICONS = {
+  win: "fas fa-trophy",
+  lose: "fas fa-sad-tear",
+  draw: "fas fa-equals"
+};
+var StyledGameOverScreen = styled.div(_templateObject$5(), function (props) {
+  return props.gameOver ? "0" : "-100%";
+}, function (props) {
+  var stateProps = lodash.get(props, ["theme", "gameState", props.state], {});
+
+  return css(_templateObject2$5(), stateProps.background, stateProps.text);
+});
+var StyledGameOverScreenMessage = styled.div(_templateObject3$4());
+var StyledGameOverScreenMessageTitle = styled.h1(_templateObject4$4());
+var StyledGameOverScreenMessageSubtitle = styled.h1(_templateObject5$1());
+var StyledGameOverScreenMessageIcon = styled.div(_templateObject6());
+var StyledPlayAgainButton = styled.button(_templateObject7());
+
+var getEndGameState = function getEndGameState(user, computer) {
+  if (user.score < computer.score) {
+    return "lose";
+  } else if (user.score > computer.score) {
+    return "win";
+  } else if (user.score === computer.score) {
+    return "draw";
+  }
+};
+
+var GameBoardGameOver = function GameBoardGameOver(_ref) {
+  var computer = _ref.computer,
+      user = _ref.user,
+      gameOver = _ref.gameOver,
+      playAgain = _ref.playAgain;
+  var state = getEndGameState(user, computer);
+  return /*#__PURE__*/React.createElement(StyledGameOverScreen, {
+    state: state,
+    gameOver: gameOver
+  }, gameOver && /*#__PURE__*/React.createElement(StyledGameOverScreenMessage, null, /*#__PURE__*/React.createElement(StyledGameOverScreenMessageTitle, null, MESSAGES[state].title), /*#__PURE__*/React.createElement(StyledGameOverScreenMessageSubtitle, null, MESSAGES[state].subtitle), /*#__PURE__*/React.createElement(StyledGameOverScreenMessageIcon, null, /*#__PURE__*/React.createElement("i", {
+    className: ICONS[state]
+  })), /*#__PURE__*/React.createElement(StyledPlayAgainButton, {
+    onClick: playAgain
+  }, "Play Again?")));
+};
+
+GameBoardGameOver.propType = {
+  computer: propTypes.object.isRequired,
+  user: propTypes.object.isRequired,
+  gameOver: propTypes.bool.isRequired,
+  playAgain: propTypes.func
+};
+
+function _templateObject4$5() {
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\ttop: 0;\n\tright: 0;\n\tbox-sizing: border-box;\n\tpadding: 8px;\n"]);
+
+  _templateObject4$5 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3$5() {
+  var data = _taggedTemplateLiteral(["\n\t\t\tbackground-color: ", ";\n\t\t\tcolor: ", ";\n\t\t"]);
+
+  _templateObject3$5 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2$6() {
+  var data = _taggedTemplateLiteral(["\n\tposition: absolute;\n\tdisplay: flex;\n\theight: 64px;\n\twidth: 64px;\n\ttop: calc(50% - 32px);\n\tleft: calc(50% - 32px);\n\tjustify-content: center;\n\talign-items: center;\n\ttext-align: center;\n\tborder: 1px solid #ccc;\n\tborder-radius: 50%;\n\tfont-weight: 500;\n\tbox-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3), 2px 2px 0 rgba(0, 0, 0, 0.22);\n\n\t", ";\n"]);
+
+  _templateObject2$6 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject$6() {
+  var data = _taggedTemplateLiteral(["\n\tdisplay: flex;\n\tposition: relative;\n\tflex-direction: column;\n\theight: 100vh;\n\twidth: 100vw;\n\n\t@media ", " {\n\t\tflex-direction: row;\n\t}\n"]);
+
+  _templateObject$6 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var STATE_MESSAGE = {
+  unplayed: "?",
+  win: "You Win!",
+  lose: "You Lose!",
+  draw: "You Draw!",
+  gameOver: "Game Over!"
+};
+var StyledGameBoard = styled.div(_templateObject$6(), breakpoints.tablet);
+var StyledGameBoardStatus = styled.span(_templateObject2$6(), function (props) {
+  var stateProps = lodash.get(props, ["theme", "gameState", props.state], {});
+
+  return css(_templateObject3$5(), stateProps.background, stateProps.text);
+});
+var StyledRoundCounter = styled.span(_templateObject4$5());
+
+var GameBoard = function GameBoard(_ref) {
+  var children = _ref.children,
+      state = _ref.state,
+      currentRound = _ref.currentRound,
+      totalRounds = _ref.totalRounds,
+      gameOver = _ref.gameOver,
+      computer = _ref.computer,
+      user = _ref.user,
+      playAgain = _ref.playAgain;
+  return /*#__PURE__*/React.createElement(StyledGameBoard, null, children, /*#__PURE__*/React.createElement(StyledGameBoardStatus, {
+    state: state
+  }, STATE_MESSAGE[state]), /*#__PURE__*/React.createElement(StyledRoundCounter, null, "Round ", currentRound, " / ", totalRounds), /*#__PURE__*/React.createElement(GameBoardGameOver, {
+    playAgain: playAgain,
+    gameOver: gameOver,
+    computer: computer,
+    user: user
+  }));
+};
+
+GameBoard.propType = {
+  state: propTypes.oneOf(["win", "lose", "draw", "unplayed"]),
+  currentRound: propTypes.number,
+  totalRounds: propTypes.number,
+  gameOver: propTypes.bool.isRequired,
+  user: propTypes.object,
+  computer: propTypes.object,
+  playAgain: propTypes.func
+};
+GameBoard.defaultProps = {
+  state: "unplayed"
+};
+
+var actions = {
+  HANDLE_CATEGORY_CLICK: "HANDLE_CATEGORY_CLICK",
+  SET_CARDS: "SET_CARDS",
+  START_NEW_ROUND: "START_NEW_ROUND",
+  HIDE_CARDS: "HIDE_CARDS",
+  NEW_GAME: "NEW_GAME"
+};
+
+var shuffleCards = function shuffleCards(cards) {
+  return cards.sort(function () {
+    return Math.random() - 0.5;
+  });
+};
+var splitCardsInHalf = function splitCardsInHalf(cards) {
+  if (cards.length % 2 === 1) {
+    cards.pop();
+  }
+
+  var firstHalf = [];
+  var secondHalf = [];
+  cards.forEach(function (card, index) {
+    if (index % 2 === 0) {
+      firstHalf.push(card);
+    } else {
+      secondHalf.push(card);
+    }
+  });
+  return [firstHalf, secondHalf];
+};
+var getCardsForRounds = function getCardsForRounds(cards, numberOfRounds) {
+  return lodash.take(cards, numberOfRounds * 2);
+};
+
+var config = {
+  numberOfRounds: 5
+};
+
+var setCards = function setCards(state, cards) {
+  var user = state.user,
+      computer = state.computer;
+  var cardsForGame = getCardsForRounds(cards, config.numberOfRounds);
+  var shuffledCards = shuffleCards(cardsForGame);
+
+  var _splitCardsInHalf = splitCardsInHalf(shuffledCards),
+      _splitCardsInHalf2 = _slicedToArray(_splitCardsInHalf, 2),
+      userCards = _splitCardsInHalf2[0],
+      computerCards = _splitCardsInHalf2[1];
+
+  return _objectSpread2(_objectSpread2({}, state), {}, {
+    loading: false,
+    gameOver: false,
+    currentRound: 1,
+    totalRounds: config.numberOfRounds,
+    allCards: cards,
+    user: _objectSpread2(_objectSpread2({}, user), {}, {
+      readonly: false,
+      showCard: true,
+      currentCard: userCards[0],
+      cards: userCards,
+      score: userCards.length,
+      state: undefined
+    }),
+    computer: _objectSpread2(_objectSpread2({}, computer), {}, {
+      readonly: true,
+      currentCard: computerCards[0],
+      cards: computerCards,
+      score: computerCards.length,
+      showCard: false,
+      state: undefined
+    })
+  });
+};
+
+var handleCategoryClick = function handleCategoryClick(state, category) {
+  var user = state.user,
+      computer = state.computer;
+
+  var newUser = _objectSpread2({}, user);
+
+  var newComputer = _objectSpread2({}, computer);
+
+  var userAmount = user.currentCard.categories[category];
+  var computerAmount = computer.currentCard.categories[category];
+
+  if (userAmount < computerAmount) {
+    newUser.state = "lose";
+    newUser.score = user.score - 1;
+    newComputer.state = "win";
+    newComputer.score = computer.score + 1;
+  } else if (userAmount > computerAmount) {
+    newUser.state = "win";
+    newUser.score = user.score + 1;
+    newComputer.state = "lose";
+    newComputer.score = computer.score - 1;
+  } else {
+    newUser.state = "draw";
+    newComputer.state = "draw";
+  }
+
+  lodash.remove(newUser.cards, function (card) {
+    return card.id === newUser.currentCard.id;
+  });
+
+  lodash.remove(newComputer.cards, function (card) {
+    return card.id === newComputer.currentCard.id;
+  });
+
+  return _objectSpread2(_objectSpread2({}, state), {}, {
+    user: _objectSpread2(_objectSpread2({}, newUser), {}, {
+      readonly: true
+    }),
+    computer: _objectSpread2(_objectSpread2({}, newComputer), {}, {
+      showCard: true
+    }),
+    selectedCategory: category
+  });
+};
+
+var startNewRound = function startNewRound(state) {
+  var user = state.user,
+      computer = state.computer,
+      currentRound = state.currentRound,
+      totalRounds = state.totalRounds;
+
+  var newUser = _objectSpread2({}, user);
+
+  var newComputer = _objectSpread2({}, computer);
+
+  var nextRound = currentRound + 1;
+
+  if (nextRound > totalRounds) {
+    return _objectSpread2(_objectSpread2({}, state), {}, {
+      gameOver: true
+    });
+  }
+
+  newUser.currentCard = newUser.cards[0];
+  newComputer.currentCard = newComputer.cards[0];
+  return _objectSpread2(_objectSpread2({}, state), {}, {
+    currentRound: nextRound,
+    user: _objectSpread2(_objectSpread2({}, newUser), {}, {
+      showCard: true,
+      readonly: false
+    }),
+    computer: _objectSpread2(_objectSpread2({}, newComputer), {}, {
+      showCard: false,
+      readonly: true
+    }),
+    selectedCategory: undefined
+  });
+};
+
+var hideCards = function hideCards(state) {
+  var user = state.user,
+      computer = state.computer;
+  return _objectSpread2(_objectSpread2({}, state), {}, {
+    user: _objectSpread2(_objectSpread2({}, user), {}, {
+      showCard: false,
+      state: undefined
+    }),
+    computer: _objectSpread2(_objectSpread2({}, computer), {}, {
+      showCard: false,
+      state: undefined
+    })
+  });
+};
+
+var newGame = function newGame(state) {
+  return setCards(state, state.allCards);
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case actions.SET_CARDS:
+      return setCards(state, action.value);
+
+    case actions.HANDLE_CATEGORY_CLICK:
+      return handleCategoryClick(state, action.value);
+
+    case actions.START_NEW_ROUND:
+      return startNewRound(state);
+
+    case actions.HIDE_CARDS:
+      return hideCards(state);
+
+    case actions.NEW_GAME:
+      return newGame(state);
+
+    default:
+      return state;
+  }
+}
+
+var initialState = {
+  loading: true,
+  gameOver: false,
+  totalRounds: 0,
+  currentRound: 0,
+  allCards: [],
+  user: {
+    showCard: false,
+    readonly: false,
+    cards: []
+  },
+  computer: {
+    showCard: false,
+    readonly: true,
+    cards: []
+  }
+};
+
+var types = createCommonjsModule(function (module, exports) {
+var __extends = (commonjsGlobal && commonjsGlobal.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ClientError = /** @class */ (function (_super) {
+    __extends(ClientError, _super);
+    function ClientError(response, request) {
+        var _this = this;
+        var message = ClientError.extractMessage(response) + ": " + JSON.stringify({
+            response: response,
+            request: request,
+        });
+        _this = _super.call(this, message) || this;
+        Object.setPrototypeOf(_this, ClientError.prototype);
+        _this.response = response;
+        _this.request = request;
+        // this is needed as Safari doesn't support .captureStackTrace
+        /* tslint:disable-next-line */
+        if (typeof Error.captureStackTrace === 'function') {
+            Error.captureStackTrace(_this, ClientError);
+        }
+        return _this;
+    }
+    ClientError.extractMessage = function (response) {
+        try {
+            return response.errors[0].message;
+        }
+        catch (e) {
+            return "GraphQL Error (Code: " + response.status + ")";
+        }
+    };
+    return ClientError;
+}(Error));
+exports.ClientError = ClientError;
+
+});
+
+var src = createCommonjsModule(function (module, exports) {
+/// <reference lib="dom" />
+var __assign = (commonjsGlobal && commonjsGlobal.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (commonjsGlobal && commonjsGlobal.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __rest = (commonjsGlobal && commonjsGlobal.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
+            t[p[i]] = s[p[i]];
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+
+var types_2 = types;
+exports.ClientError = types_2.ClientError;
+var GraphQLClient = /** @class */ (function () {
+    function GraphQLClient(url, options) {
+        this.url = url;
+        this.options = options || {};
+    }
+    GraphQLClient.prototype.rawRequest = function (query, variables) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, headers, others, body, response, result, headers_1, status_1, errorResult;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
+                        body = JSON.stringify({
+                            query: query,
+                            variables: variables ? variables : undefined,
+                        });
+                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: __assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
+                    case 1:
+                        response = _b.sent();
+                        return [4 /*yield*/, getResult(response)];
+                    case 2:
+                        result = _b.sent();
+                        if (response.ok && !result.errors && result.data) {
+                            headers_1 = response.headers, status_1 = response.status;
+                            return [2 /*return*/, __assign({}, result, { headers: headers_1, status: status_1 })];
+                        }
+                        else {
+                            errorResult = typeof result === 'string' ? { error: result } : result;
+                            throw new types.ClientError(__assign({}, errorResult, { status: response.status, headers: response.headers }), { query: query, variables: variables });
+                        }
+                }
+            });
+        });
+    };
+    GraphQLClient.prototype.request = function (query, variables) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, headers, others, body, response, result, errorResult;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
+                        body = JSON.stringify({
+                            query: query,
+                            variables: variables ? variables : undefined,
+                        });
+                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: __assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
+                    case 1:
+                        response = _b.sent();
+                        return [4 /*yield*/, getResult(response)];
+                    case 2:
+                        result = _b.sent();
+                        if (response.ok && !result.errors && result.data) {
+                            return [2 /*return*/, result.data];
+                        }
+                        else {
+                            errorResult = typeof result === 'string' ? { error: result } : result;
+                            throw new types.ClientError(__assign({}, errorResult, { status: response.status }), { query: query, variables: variables });
+                        }
+                }
+            });
+        });
+    };
+    GraphQLClient.prototype.setHeaders = function (headers) {
+        this.options.headers = headers;
+        return this;
+    };
+    GraphQLClient.prototype.setHeader = function (key, value) {
+        var _a;
+        var headers = this.options.headers;
+        if (headers) {
+            headers[key] = value;
+        }
+        else {
+            this.options.headers = (_a = {}, _a[key] = value, _a);
+        }
+        return this;
+    };
+    return GraphQLClient;
+}());
+exports.GraphQLClient = GraphQLClient;
+function rawRequest(url, query, variables) {
+    var client = new GraphQLClient(url);
+    return client.rawRequest(query, variables);
+}
+exports.rawRequest = rawRequest;
+function request(url, query, variables) {
+    var client = new GraphQLClient(url);
+    return client.request(query, variables);
+}
+exports.request = request;
+exports.default = request;
+function getResult(response) {
+    var contentType = response.headers.get('Content-Type');
+    if (contentType && contentType.startsWith('application/json')) {
+        return response.json();
+    }
+    else {
+        return response.text();
+    }
+}
+
+});
+
+var request = /*@__PURE__*/unwrapExports(src);
+
+var BASE_URL = "https://api-euwest.graphcms.com/v1/ck5wca13qc9ux01fgaidt12m4/master";
+
+var StarWarsDataService = /*#__PURE__*/function () {
+  function StarWarsDataService() {
+    _classCallCheck(this, StarWarsDataService);
+  }
+
+  _createClass(StarWarsDataService, [{
+    key: "getStarShips",
+    value: function getStarShips() {
+      var query = "{\n\t\t\tstarships {\n\t\t\t\tid,\n\t\t\t\tname,\n\t\t\t\tclass,\n\t\t\t\tmaxAtmospheringSpeed,\n\t\t\t\tcostInCredits,\n\t\t\t\tpassengers,\n\t\t\t\tfilms {\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}";
+      return request(BASE_URL, query).then(function (response) {
+        return response.starships.map(function (_ref) {
+          var id = _ref.id,
+              name = _ref.name,
+              starshipClass = _ref.class,
+              maxAtmospheringSpeed = _ref.maxAtmospheringSpeed,
+              costInCredits = _ref.costInCredits,
+              passengers = _ref.passengers,
+              films = _ref.films;
+          return {
+            id: id,
+            title: name,
+            info: [starshipClass],
+            categories: {
+              Speed: maxAtmospheringSpeed || 0,
+              Cost: costInCredits || 0,
+              Passengers: passengers || 0,
+              Films: films.length
+            }
+          };
+        });
+      });
+    }
+  }]);
+
+  return StarWarsDataService;
+}();
+
+var starWarsDataService = new StarWarsDataService();
+
+var GameStateContext = createContext({});
+function GameStateProvider(_ref) {
+  var children = _ref.children;
+
+  var _useReducer = useReducer(reducer, initialState),
+      _useReducer2 = _slicedToArray(_useReducer, 2),
+      state = _useReducer2[0],
+      dispatch = _useReducer2[1];
+
+  var value = {
+    loading: state.loading,
+    gameOver: state.gameOver,
+    allCards: state.allCards,
+    user: state.user,
+    computer: state.computer,
+    selectedCategory: state.selectedCategory,
+    totalRounds: state.totalRounds,
+    currentRound: state.currentRound,
+    setCards: function setCards(value) {
+      return dispatch({
+        type: actions.SET_CARDS,
+        value: value
+      });
+    },
+    handleCategoryClick: function handleCategoryClick(value) {
+      return dispatch({
+        type: actions.HANDLE_CATEGORY_CLICK,
+        value: value
+      });
+    },
+    startNewRound: function startNewRound() {
+      return dispatch({
+        type: actions.START_NEW_ROUND
+      });
+    },
+    hideCards: function hideCards() {
+      return dispatch({
+        type: actions.HIDE_CARDS
+      });
+    },
+    newGame: function newGame(value) {
+      return dispatch({
+        type: actions.NEW_GAME,
+        value: value
+      });
+    }
+  };
+  useEffect(function () {
+    (function () {
+      var _loadCards = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        var cards;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return starWarsDataService.getStarShips();
+
+              case 2:
+                cards = _context.sent;
+                value.setCards(cards);
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function loadCards() {
+        return _loadCards.apply(this, arguments);
+      }
+
+      return loadCards;
+    })()(); // eslint-disable-next-line
+  }, []);
+  return /*#__PURE__*/React.createElement(GameStateContext.Provider, {
+    value: value
+  }, children);
+}
+
+function GameBoardContainer() {
+  var _useContext = useContext(GameStateContext),
+      loading = _useContext.loading,
+      user = _useContext.user,
+      computer = _useContext.computer,
+      handleCategoryClick = _useContext.handleCategoryClick,
+      selectedCategory = _useContext.selectedCategory,
+      startNewRound = _useContext.startNewRound,
+      hideCards = _useContext.hideCards,
+      totalRounds = _useContext.totalRounds,
+      currentRound = _useContext.currentRound,
+      gameOver = _useContext.gameOver,
+      newGame = _useContext.newGame;
+
+  if (loading) {
+    return null;
+  }
+
+  var startNewRoundAfterCategoryClick = function startNewRoundAfterCategoryClick(category) {
+    handleCategoryClick(category);
+    setTimeout(function () {
+      hideCards();
+      setTimeout(function () {
+        startNewRound();
+      }, 1000);
+    }, 3000);
+  };
+
+  return /*#__PURE__*/React.createElement(GameBoard, {
+    gameOver: gameOver,
+    state: user.state,
+    totalRounds: totalRounds,
+    currentRound: currentRound,
+    computer: computer,
+    user: user,
+    playAgain: newGame
+  }, /*#__PURE__*/React.createElement(PlayArea, {
+    type: "user",
+    score: user.score
+  }, /*#__PURE__*/React.createElement(Card, {
+    show: user.showCard,
+    state: user.state,
+    type: "user",
+    data: user.currentCard,
+    handleCategoryClick: startNewRoundAfterCategoryClick,
+    readonly: user.readonly,
+    selectedCategory: selectedCategory
+  })), /*#__PURE__*/React.createElement(PlayArea, {
+    type: "computer",
+    score: computer.score
+  }, /*#__PURE__*/React.createElement(Card, {
+    show: computer.showCard,
+    state: computer.state,
+    type: "computer",
+    data: computer.currentCard,
+    readonly: true,
+    selectedCategory: selectedCategory
+  })));
+}
+
+var App = function App() {
+  return /*#__PURE__*/React.createElement(ThemeProvider, {
+    theme: defaultTheme
+  }, /*#__PURE__*/React.createElement(GameStateProvider, null, /*#__PURE__*/React.createElement(GameBoardContainer, null)));
+};
+
+export default App;
