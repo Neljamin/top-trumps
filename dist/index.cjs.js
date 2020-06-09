@@ -7,10 +7,6 @@ var React__default = _interopDefault(React);
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
-function unwrapExports (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
 function createCommonjsModule(fn, basedir, module) {
 	return module = {
 	  path: basedir,
@@ -2818,64 +2814,6 @@ var defaultTheme = {
     background: colors.orange
   }
 };
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-  try {
-    var info = gen[key](arg);
-    var value = info.value;
-  } catch (error) {
-    reject(error);
-    return;
-  }
-
-  if (info.done) {
-    resolve(value);
-  } else {
-    Promise.resolve(value).then(_next, _throw);
-  }
-}
-
-function _asyncToGenerator(fn) {
-  return function () {
-    var self = this,
-        args = arguments;
-    return new Promise(function (resolve, reject) {
-      var gen = fn.apply(self, args);
-
-      function _next(value) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-      }
-
-      function _throw(err) {
-        asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-      }
-
-      _next(undefined);
-    });
-  };
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -20995,13 +20933,13 @@ PlayArea.propTypes = {
   score: propTypes.number
 };
 
-function _classCallCheck$1(instance, Constructor) {
+function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
   }
 }
 
-function _defineProperties$1(target, props) {
+function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
@@ -21011,9 +20949,9 @@ function _defineProperties$1(target, props) {
   }
 }
 
-function _createClass$1(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties$1(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties$1(Constructor, staticProps);
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
   return Constructor;
 }
 
@@ -21940,12 +21878,12 @@ var Library =
 /*#__PURE__*/
 function () {
   function Library() {
-    _classCallCheck$1(this, Library);
+    _classCallCheck(this, Library);
 
     this.definitions = {};
   }
 
-  _createClass$1(Library, [{
+  _createClass(Library, [{
     key: "add",
     value: function add() {
       var _this = this;
@@ -23241,266 +23179,12 @@ var initialState = {
   }
 };
 
-var types = createCommonjsModule(function (module, exports) {
-var __extends = (commonjsGlobal && commonjsGlobal.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ClientError = /** @class */ (function (_super) {
-    __extends(ClientError, _super);
-    function ClientError(response, request) {
-        var _this = this;
-        var message = ClientError.extractMessage(response) + ": " + JSON.stringify({
-            response: response,
-            request: request,
-        });
-        _this = _super.call(this, message) || this;
-        Object.setPrototypeOf(_this, ClientError.prototype);
-        _this.response = response;
-        _this.request = request;
-        // this is needed as Safari doesn't support .captureStackTrace
-        /* tslint:disable-next-line */
-        if (typeof Error.captureStackTrace === 'function') {
-            Error.captureStackTrace(_this, ClientError);
-        }
-        return _this;
-    }
-    ClientError.extractMessage = function (response) {
-        try {
-            return response.errors[0].message;
-        }
-        catch (e) {
-            return "GraphQL Error (Code: " + response.status + ")";
-        }
-    };
-    return ClientError;
-}(Error));
-exports.ClientError = ClientError;
-
-});
-
-var src = createCommonjsModule(function (module, exports) {
-/// <reference lib="dom" />
-var __assign = (commonjsGlobal && commonjsGlobal.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (commonjsGlobal && commonjsGlobal.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var __rest = (commonjsGlobal && commonjsGlobal.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-
-var types_2 = types;
-exports.ClientError = types_2.ClientError;
-var GraphQLClient = /** @class */ (function () {
-    function GraphQLClient(url, options) {
-        this.url = url;
-        this.options = options || {};
-    }
-    GraphQLClient.prototype.rawRequest = function (query, variables) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, headers, others, body, response, result, headers_1, status_1, errorResult;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
-                        body = JSON.stringify({
-                            query: query,
-                            variables: variables ? variables : undefined,
-                        });
-                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: __assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
-                    case 1:
-                        response = _b.sent();
-                        return [4 /*yield*/, getResult(response)];
-                    case 2:
-                        result = _b.sent();
-                        if (response.ok && !result.errors && result.data) {
-                            headers_1 = response.headers, status_1 = response.status;
-                            return [2 /*return*/, __assign({}, result, { headers: headers_1, status: status_1 })];
-                        }
-                        else {
-                            errorResult = typeof result === 'string' ? { error: result } : result;
-                            throw new types.ClientError(__assign({}, errorResult, { status: response.status, headers: response.headers }), { query: query, variables: variables });
-                        }
-                }
-            });
-        });
-    };
-    GraphQLClient.prototype.request = function (query, variables) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, headers, others, body, response, result, errorResult;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this.options, headers = _a.headers, others = __rest(_a, ["headers"]);
-                        body = JSON.stringify({
-                            query: query,
-                            variables: variables ? variables : undefined,
-                        });
-                        return [4 /*yield*/, fetch(this.url, __assign({ method: 'POST', headers: __assign({ 'Content-Type': 'application/json' }, headers), body: body }, others))];
-                    case 1:
-                        response = _b.sent();
-                        return [4 /*yield*/, getResult(response)];
-                    case 2:
-                        result = _b.sent();
-                        if (response.ok && !result.errors && result.data) {
-                            return [2 /*return*/, result.data];
-                        }
-                        else {
-                            errorResult = typeof result === 'string' ? { error: result } : result;
-                            throw new types.ClientError(__assign({}, errorResult, { status: response.status }), { query: query, variables: variables });
-                        }
-                }
-            });
-        });
-    };
-    GraphQLClient.prototype.setHeaders = function (headers) {
-        this.options.headers = headers;
-        return this;
-    };
-    GraphQLClient.prototype.setHeader = function (key, value) {
-        var _a;
-        var headers = this.options.headers;
-        if (headers) {
-            headers[key] = value;
-        }
-        else {
-            this.options.headers = (_a = {}, _a[key] = value, _a);
-        }
-        return this;
-    };
-    return GraphQLClient;
-}());
-exports.GraphQLClient = GraphQLClient;
-function rawRequest(url, query, variables) {
-    var client = new GraphQLClient(url);
-    return client.rawRequest(query, variables);
-}
-exports.rawRequest = rawRequest;
-function request(url, query, variables) {
-    var client = new GraphQLClient(url);
-    return client.request(query, variables);
-}
-exports.request = request;
-exports.default = request;
-function getResult(response) {
-    var contentType = response.headers.get('Content-Type');
-    if (contentType && contentType.startsWith('application/json')) {
-        return response.json();
-    }
-    else {
-        return response.text();
-    }
-}
-
-});
-
-var request = /*@__PURE__*/unwrapExports(src);
-
-var BASE_URL = "https://api-euwest.graphcms.com/v1/ck5wca13qc9ux01fgaidt12m4/master";
-
-var StarWarsDataService = /*#__PURE__*/function () {
-  function StarWarsDataService() {
-    _classCallCheck(this, StarWarsDataService);
-  }
-
-  _createClass(StarWarsDataService, [{
-    key: "getStarShips",
-    value: function getStarShips() {
-      var query = "{\n\t\t\tstarships {\n\t\t\t\tid,\n\t\t\t\tname,\n\t\t\t\tclass,\n\t\t\t\tmaxAtmospheringSpeed,\n\t\t\t\tcostInCredits,\n\t\t\t\tpassengers,\n\t\t\t\tfilms {\n\t\t\t\t\ttitle\n\t\t\t\t}\n\t\t\t}\n\t\t}";
-      return request(BASE_URL, query).then(function (response) {
-        return response.starships.map(function (_ref) {
-          var id = _ref.id,
-              name = _ref.name,
-              starshipClass = _ref.class,
-              maxAtmospheringSpeed = _ref.maxAtmospheringSpeed,
-              costInCredits = _ref.costInCredits,
-              passengers = _ref.passengers,
-              films = _ref.films;
-          return {
-            id: id,
-            title: name,
-            info: [starshipClass],
-            categories: {
-              Speed: maxAtmospheringSpeed || 0,
-              Cost: costInCredits || 0,
-              Passengers: passengers || 0,
-              Films: films.length
-            }
-          };
-        });
-      });
-    }
-  }]);
-
-  return StarWarsDataService;
-}();
-
-var starWarsDataService = new StarWarsDataService();
-
 var GameStateContext = React.createContext({});
 function GameStateProvider(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      cards = _ref.cards;
 
-  var _useReducer = React.useReducer(reducer, initialState),
+  var _useReducer = React.useReducer(reducer, setCards(initialState, cards)),
       _useReducer2 = _slicedToArray(_useReducer, 2),
       state = _useReducer2[0],
       dispatch = _useReducer2[1];
@@ -23543,36 +23227,6 @@ function GameStateProvider(_ref) {
       });
     }
   };
-  React.useEffect(function () {
-    (function () {
-      var _loadCards = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var cards;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.next = 2;
-                return starWarsDataService.getStarShips();
-
-              case 2:
-                cards = _context.sent;
-                value.setCards(cards);
-
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function loadCards() {
-        return _loadCards.apply(this, arguments);
-      }
-
-      return loadCards;
-    })()(); // eslint-disable-next-line
-  }, []);
   return /*#__PURE__*/React__default.createElement(GameStateContext.Provider, {
     value: value
   }, children);
@@ -23649,10 +23303,386 @@ function _templateObject$7() {
 }
 var AppGlobalStyles = createGlobalStyle(_templateObject$7());
 
-var App = function App() {
+var fallbackCards = [{
+  id: "cj0nwtqoyq4tp0114jjljap6j",
+  title: "Sentinel-class landing craft",
+  info: ["landing craft"],
+  categories: {
+    Speed: 1000,
+    Cost: 240000,
+    Passengers: 75,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqphq4tr0114zo7suw8h",
+  title: "Death Star",
+  info: ["Deep Space Mobile Battlestation"],
+  categories: {
+    Speed: 0,
+    Cost: 1000000000000,
+    Passengers: 843342,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqpzq4tt01142nh7e9i4",
+  title: "Millennium Falcon",
+  info: ["Light freighter"],
+  categories: {
+    Speed: 1050,
+    Cost: 100000,
+    Passengers: 6,
+    Films: 4
+  }
+}, {
+  id: "cj0nwtqqvq4xx0114j0y0n79d",
+  title: "Y-wing",
+  info: ["assault starfighter"],
+  categories: {
+    Speed: 1000,
+    Cost: 134999,
+    Passengers: 0,
+    Films: 3
+  }
+}, {
+  id: "cj0nwtqreq4y00114p4a447ed",
+  title: "X-wing",
+  info: ["Starfighter"],
+  categories: {
+    Speed: 1050,
+    Cost: 149999,
+    Passengers: 0,
+    Films: 3
+  }
+}, {
+  id: "cj0nwtqrtq4yz0114o0i03199",
+  title: "TIE Advanced x1",
+  info: ["Starfighter"],
+  categories: {
+    Speed: 1200,
+    Cost: 0,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqs9q4z10114ipw9hrtu",
+  title: "Executor",
+  info: ["Star dreadnought"],
+  categories: {
+    Speed: 0,
+    Cost: 1143350000,
+    Passengers: 38000,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqsrq4z30114votsy21g",
+  title: "Slave 1",
+  info: ["Patrol craft"],
+  categories: {
+    Speed: 1000,
+    Cost: 0,
+    Passengers: 6,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqt5q4z50114u4lejke2",
+  title: "Imperial shuttle",
+  info: ["Armed government transport"],
+  categories: {
+    Speed: 850,
+    Cost: 240000,
+    Passengers: 20,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqtkq53701147nyv3twg",
+  title: "EF76 Nebulon-B escort frigate",
+  info: ["Escort ship"],
+  categories: {
+    Speed: 800,
+    Cost: 8500000,
+    Passengers: 75,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqtxq5390114gpi9g07u",
+  title: "Calamari Cruiser",
+  info: ["Star Cruiser"],
+  categories: {
+    Speed: 0,
+    Cost: 104000000,
+    Passengers: 1200,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqudq53b0114s5id3anc",
+  title: "A-wing",
+  info: ["Starfighter"],
+  categories: {
+    Speed: 1300,
+    Cost: 175000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqupq53e0114dl5ikfwq",
+  title: "B-wing",
+  info: ["Assault Starfighter"],
+  categories: {
+    Speed: 950,
+    Cost: 220000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqv2q53g0114d58808u5",
+  title: "Republic Cruiser",
+  info: ["Space cruiser"],
+  categories: {
+    Speed: 900,
+    Cost: 0,
+    Passengers: 16,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqvfq53i0114d6kym9f4",
+  title: "Naboo fighter",
+  info: ["Starfighter"],
+  categories: {
+    Speed: 1100,
+    Cost: 200000,
+    Passengers: 0,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqvrq53k0114b291ao52",
+  title: "Naboo Royal Starship",
+  info: ["yacht"],
+  categories: {
+    Speed: 920,
+    Cost: 0,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqw4q53m0114jllt1kvp",
+  title: "Scimitar",
+  info: ["Space Transport"],
+  categories: {
+    Speed: 1180,
+    Cost: 55000000,
+    Passengers: 6,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqwhq57p0114c672vufv",
+  title: "J-type diplomatic barge",
+  info: ["Diplomatic barge"],
+  categories: {
+    Speed: 2000,
+    Cost: 2000000,
+    Passengers: 10,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqwwq57r0114tj97s0m7",
+  title: "AA-9 Coruscant freighter",
+  info: ["freighter"],
+  categories: {
+    Speed: 0,
+    Cost: 0,
+    Passengers: 30000,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqxcq57u01147v9mcrzf",
+  title: "Jedi starfighter",
+  info: ["Starfighter"],
+  categories: {
+    Speed: 1150,
+    Cost: 180000,
+    Passengers: 0,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtqxqq57w0114r7awvbfp",
+  title: "H-type Nubian yacht",
+  info: ["yacht"],
+  categories: {
+    Speed: 8000,
+    Cost: 0,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqy5q57y01140qg76me2",
+  title: "Star Destroyer",
+  info: ["Star Destroyer"],
+  categories: {
+    Speed: 975,
+    Cost: 150000000,
+    Passengers: 0,
+    Films: 3
+  }
+}, {
+  id: "cj0nwtqytq5800114zjhy9gcj",
+  title: "Trade Federation cruiser",
+  info: ["capital ship"],
+  categories: {
+    Speed: 1050,
+    Cost: 125000000,
+    Passengers: 48247,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqzbq5820114l5tw912q",
+  title: "Theta-class T-2c shuttle",
+  info: ["transport"],
+  categories: {
+    Speed: 2000,
+    Cost: 1000000,
+    Passengers: 16,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtqzsq58401148bc66ui5",
+  title: "T-70 X-wing fighter",
+  info: ["fighter"],
+  categories: {
+    Speed: 0,
+    Cost: 0,
+    Passengers: 0,
+    Films: 0
+  }
+}, {
+  id: "cj0nwtr07q5860114oxaxo1qs",
+  title: "Rebel transport",
+  info: ["Medium transport"],
+  categories: {
+    Speed: 650,
+    Cost: 0,
+    Passengers: 90,
+    Films: 2
+  }
+}, {
+  id: "cj0nwtr0lq5890114bdbms643",
+  title: "Droid control ship",
+  info: ["Droid control ship"],
+  categories: {
+    Speed: 0,
+    Cost: 0,
+    Passengers: 139000,
+    Films: 3
+  }
+}, {
+  id: "cj0nwtr16q5cc0114xy8fbjnx",
+  title: "Republic Assault ship",
+  info: ["assault ship"],
+  categories: {
+    Speed: 0,
+    Cost: 0,
+    Passengers: 16000,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr1kq5ce0114e67x3jci",
+  title: "Solar Sailer",
+  info: ["yacht"],
+  categories: {
+    Speed: 1600,
+    Cost: 35700,
+    Passengers: 11,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr27q5ch0114usza57s0",
+  title: "Republic attack cruiser",
+  info: ["star destroyer"],
+  categories: {
+    Speed: 975,
+    Cost: 59000000,
+    Passengers: 2000,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr2lq5ck01145j6ztwzk",
+  title: "Naboo star skiff",
+  info: ["yacht"],
+  categories: {
+    Speed: 1050,
+    Cost: 0,
+    Passengers: 3,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr2xq5cm0114vpr8asu9",
+  title: "Jedi Interceptor",
+  info: ["starfighter"],
+  categories: {
+    Speed: 1500,
+    Cost: 320000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr3aq5co0114qple26v3",
+  title: "arc-170",
+  info: ["starfighter"],
+  categories: {
+    Speed: 1000,
+    Cost: 155000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr3mq5cq0114hkjfwbr4",
+  title: "Banking clan frigte",
+  info: ["cruiser"],
+  categories: {
+    Speed: 0,
+    Cost: 57000000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr3zq5cs0114189m08ze",
+  title: "Belbullab-22 starfighter",
+  info: ["starfighter"],
+  categories: {
+    Speed: 1100,
+    Cost: 168000,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr4bq5gu0114p56o7d45",
+  title: "V-wing",
+  info: ["starfighter"],
+  categories: {
+    Speed: 1050,
+    Cost: 102500,
+    Passengers: 0,
+    Films: 1
+  }
+}, {
+  id: "cj0nwtr4oq5gx0114qq8lcxyw",
+  title: "CR90 corvette",
+  info: ["corvette"],
+  categories: {
+    Speed: 950,
+    Cost: 3500000,
+    Passengers: 600,
+    Films: 3
+  }
+}];
+
+var App = function App(_ref) {
+  var _ref$cards = _ref.cards,
+      cards = _ref$cards === void 0 ? fallbackCards : _ref$cards;
   return /*#__PURE__*/React__default.createElement(ThemeProvider, {
     theme: defaultTheme
-  }, /*#__PURE__*/React__default.createElement(AppGlobalStyles, null), /*#__PURE__*/React__default.createElement(GameStateProvider, null, /*#__PURE__*/React__default.createElement(GameBoardContainer, null)));
+  }, /*#__PURE__*/React__default.createElement(AppGlobalStyles, null), /*#__PURE__*/React__default.createElement(GameStateProvider, {
+    cards: cards
+  }, /*#__PURE__*/React__default.createElement(GameBoardContainer, null)));
 };
 
 module.exports = App;
