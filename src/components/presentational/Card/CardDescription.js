@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { breakpoints } from "../../../styles";
 import iconMap from "./iconMap";
@@ -36,7 +37,7 @@ const StyledCardDescriptionTitle = styled.h1`
 const CardDescription = ({ title, info, type }) => (
 	<StyledCardDescription>
 		<StyledCardDescriptionIcon>
-			<i className={`fa ${iconMap[type]}`} />
+			<FontAwesomeIcon icon={iconMap[type]} />
 		</StyledCardDescriptionIcon>
 		<StyledCardDescriptionInfo>
 			<StyledCardDescriptionTitle>{title}</StyledCardDescriptionTitle>

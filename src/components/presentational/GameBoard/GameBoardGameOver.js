@@ -2,6 +2,8 @@ import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import _ from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy, faSadTear, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const MESSAGES = {
 	win: {
@@ -19,9 +21,9 @@ const MESSAGES = {
 };
 
 const ICONS = {
-	win: "fas fa-trophy",
-	lose: "fas fa-sad-tear",
-	draw: "fas fa-equals",
+	win: faTrophy,
+	lose: faSadTear,
+	draw: faPencilAlt,
 };
 
 const StyledGameOverScreen = styled.div`
@@ -110,7 +112,7 @@ const GameBoardGameOver = ({ computer, user, gameOver, playAgain }) => {
 					</StyledGameOverScreenMessageSubtitle>
 
 					<StyledGameOverScreenMessageIcon>
-						<i className={ICONS[state]} />
+						<FontAwesomeIcon icon={ICONS[state]} />
 					</StyledGameOverScreenMessageIcon>
 
 					<StyledPlayAgainButton onClick={playAgain}>

@@ -1,4 +1,6 @@
+import { faUser, faRobot } from "@fortawesome/free-solid-svg-icons";
+
 export default {
-	user: "fa-user",
-	computer: "fa-robot",
+	user: faUser,
+	computer: faRobot,
 };

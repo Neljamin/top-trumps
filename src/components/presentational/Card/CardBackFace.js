@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import iconMap from "./iconMap";
 
@@ -29,7 +30,7 @@ const StyledCardBackFaceIcon = styled.div`
 const CardBackFace = ({ type }) => (
 	<StyledCardBackFace>
 		<StyledCardBackFaceIcon>
-			<i className={`fa ${iconMap[type]}`} />
+			<FontAwesomeIcon icon={iconMap[type]} />
 		</StyledCardBackFaceIcon>
 	</StyledCardBackFace>
 );
