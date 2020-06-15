@@ -14,18 +14,23 @@ const StyledCardCategory = styled.button`
 	margin-bottom: 2px;
 	justify-content: space-between;
 	border: 1px #ccc solid;
-	background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackground'])};
-	color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
+	background-color: ${(props) =>
+		_.get(props.theme, [props.type, "frontFace", "categoryBackground"])};
+	color: ${(props) =>
+		_.get(props.theme, [props.type, "frontFace", "textColor"])};
 	text-align: left;
 	cursor: pointer;
 
 	&:hover {
-		background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackgroundHover'])};
+		background-color: ${(props) =>
+			_.get(props.theme, [props.type, "frontFace", "categoryBackgroundHover"])};
 	}
 
 	&:disabled {
-		background-color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'categoryBackground'])};
-		color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
+		background-color: ${(props) =>
+			_.get(props.theme, [props.type, "frontFace", "categoryBackground"])};
+		color: ${(props) =>
+			_.get(props.theme, [props.type, "frontFace", "textColor"])};
 		cursor: auto;
 	}
 
@@ -77,7 +82,6 @@ const CardCategories = ({
 );
 
 CardCategories.propTypes = {
-	
 	categories: PropTypes.object,
 	readonly: PropTypes.bool,
 	handleCategoryClick: (props, propName) => {

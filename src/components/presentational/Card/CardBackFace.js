@@ -14,8 +14,10 @@ const StyledCardBackFace = styled.div`
 	justify-content: center;
 	border: 1px solid #ccc;
 	border-radius: 10px;
-	background-color: ${props =>  _.get(props.theme, [props.type, 'backFace', 'innerBackgroundColor'])};
-	background-image: url(${props =>  _.get(props.theme, [props.type, 'backFace', 'innerBackgroundImage'], '')});
+	background-color: ${(props) =>
+		_.get(props.theme, [props.type, "backFace", "innerBackgroundColor"])};
+	background-image: url(${(props) =>
+		_.get(props.theme, [props.type, "backFace", "innerBackgroundImage"], "")});
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
@@ -28,7 +30,8 @@ const StyledCardBackFaceIcon = styled.div`
 	align-items: center;
 	justify-content: center;
 	font-size: 64px;
-	background-color: ${props =>  _.get(props.theme, [props.type, 'backFace', 'avatarIconColor'])};
+	background-color: ${(props) =>
+		_.get(props.theme, [props.type, "backFace", "avatarIconColor"])};
 	color: white;
 	border-radius: 50%;
 `;

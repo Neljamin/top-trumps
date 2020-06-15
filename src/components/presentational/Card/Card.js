@@ -41,11 +41,11 @@ const StyledCardFace = styled.div`
 `;
 
 const StyledCardFrontface = styled(StyledCardFace)`
-	background-color: ${props => props.theme[props.type].frontFace.background};
+	background-color: ${(props) => props.theme[props.type].frontFace.background};
 `;
 
 const StyledCardBackface = styled(StyledCardFace)`
-	background-color: ${props => props.theme[props.type].backFace.background};
+	background-color: ${(props) => props.theme[props.type].backFace.background};
 	transform: rotateY(180deg);
 `;
 

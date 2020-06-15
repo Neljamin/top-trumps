@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import _ from "lodash";
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 
 import { theme as defaultTheme } from "./styles";
 import { GameBoardContainer } from "./components/container";

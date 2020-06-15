@@ -3,7 +3,11 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrophy, faSadTear, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+	faTrophy,
+	faSadTear,
+	faPencilAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MESSAGES = {
 	win: {

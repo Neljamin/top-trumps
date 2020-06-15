@@ -9,7 +9,8 @@ import iconMap from "./iconMap";
 
 const StyledCardDescription = styled.div`
 	display: flex;
-	color: ${props =>  _.get(props.theme, [props.type, 'frontFace', 'textColor'])};
+	color: ${(props) =>
+		_.get(props.theme, [props.type, "frontFace", "textColor"])};
 `;
 
 const StyledCardDescriptionIcon = styled.div`

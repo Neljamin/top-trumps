@@ -35,7 +35,7 @@ export default {
 	},
 	user: {
 		background: colors.blue,
-		backgroundImage: '',
+		backgroundImage: "",
 		scoreColor: colors.blue,
 		frontFace: {
 			background: colors.white,
@@ -46,13 +46,13 @@ export default {
 		backFace: {
 			background: colors.white,
 			innerBackgroundColor: colors.white,
-			innerBackgroundImage: '',
+			innerBackgroundImage: "",
 			avatarIconColor: colors.darkGrey,
-		}
+		},
 	},
 	computer: {
 		background: colors.orange,
-		backgroundImage: '',
+		backgroundImage: "",
 		scoreColor: colors.black,
 		frontFace: {
 			background: colors.white,
@@ -63,8 +63,8 @@ export default {
 		backFace: {
 			background: colors.white,
 			innerBackgroundColor: colors.white,
-			innerBackgroundImage: '',
+			innerBackgroundImage: "",
 			avatarIconColor: colors.darkGrey,
-		}
+		},
 	},
 };

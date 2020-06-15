@@ -12,7 +12,8 @@ const StyledPlayArea = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: ${({ theme, type }) => _.get(theme, [type, "background"])};
-	background-image: url(${props =>  _.get(props.theme, [props.type, "backgroundImage"], "")});
+	background-image: url(${(props) =>
+		_.get(props.theme, [props.type, "backgroundImage"], "")});
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
